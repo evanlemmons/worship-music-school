@@ -4,7 +4,7 @@ import csv, html, markdown
 
 import os
 _R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONTENT = os.path.join(_R, "content"); DATA = os.path.join(_R, "data"); SITE = os.path.join(_R, "site")
+CONTENT = os.path.join(_R, "content"); DATA = os.path.join(_R, "data"); SITE = os.path.join(_R, "docs")
 os.makedirs(SITE, exist_ok=True)
 def read_csv(p):
     with open(p) as f: return list(csv.reader(f))

@@ -11,15 +11,15 @@ I'm handing you an established project to own going forward. Everything you need
 **Do this first — get oriented before acting:**
 1. Read `CLAUDE.md` — it's the project context, the repo layout, the build commands, and the conventions.
 2. Read `content/README.md`, then skim `content/` and `data/`. That's the whole plan.
-3. Run the build to confirm the toolchain works: `python3 build/build_site.py` should regenerate `site/index.html`. Dependencies: `pip install markdown openpyxl` (and `npm i docx` if you regenerate the Word doc). Tell me if anything doesn't run.
+3. Run the build to confirm the toolchain works: `python3 build/build_site.py` should regenerate `docs/index.html`. Dependencies: `pip install markdown openpyxl` (and `npm i docx` if you regenerate the Word doc). Tell me if anything doesn't run.
 
-**The golden rule:** `site/index.html` and `content/01-*.md` and `content/04-*.md` are **generated**. Never hand-edit them — edit the source (`content/*.md` prose and `data/*.csv`), then rebuild. Full details are in `CLAUDE.md`.
+**The golden rule:** `docs/index.html` and `content/01-*.md` and `content/04-*.md` are **generated**. Never hand-edit them — edit the source (`content/*.md` prose and `data/*.csv`), then rebuild. Full details are in `CLAUDE.md`.
 
 **What I need from you, in order:**
 
-1. **Publish the page publicly on GitHub Pages under my personal GitHub account.** Ask me for my GitHub username and the repo name I want. Then initialize git here, help me create the repo — use the `gh` CLI if I have it authenticated (`gh auth status`), otherwise give me exact click-by-click steps — push, enable Pages, and confirm the live URL. `site/PUBLISH.md` has a manual walkthrough you can follow or improve.
+1. **Publish the page publicly on GitHub Pages under my personal GitHub account.** Ask me for my GitHub username and the repo name I want. Then initialize git here, help me create the repo — use the `gh` CLI if I have it authenticated (`gh auth status`), otherwise give me exact click-by-click steps — push, enable Pages, and confirm the live URL. `docs/PUBLISH.md` has a manual walkthrough you can follow or improve.
 
-2. **Set up a tight change → rebuild → publish workflow.** Whenever we change anything (a study, a song, the schedule, the design), you edit the source, rebuild `site/index.html`, and push so the live page updates. Regenerate the files in `deliverables/` too when it's relevant.
+2. **Set up a tight change → rebuild → publish workflow.** Whenever we change anything (a study, a song, the schedule, the design), you edit the source, rebuild `docs/index.html`, and push so the live page updates. Regenerate the files in `deliverables/` too when it's relevant.
 
 3. **Help me resolve the open decisions.** They're listed in `content/07-logistics-safety.md` and in the page's "Open questions" section: the name/brand, meeting night, age range, free-vs-materials-fee & budget, showcase format, Planning Center ownership, and gear. Ask me about a few at a time; as we decide, update the content and rebuild.
 

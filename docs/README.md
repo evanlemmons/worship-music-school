@@ -4,8 +4,7 @@ A weekly discipleship & development group for young musicians at **North Metro C
 
 This repo is a single, self-contained web page (`index.html`) that presents the first-draft plan for the first two terms (Sept 2026 – Feb 2027). It's meant to be shared publicly so leaders, parents, and students can look it over and talk about next steps. There's no build step and no dependencies — it's one HTML file.
 
-**Live page:** `https://<your-username>.github.io/<repo-name>/`
-*(fill this in once GitHub Pages is enabled — see PUBLISH.md)*
+**Live page:** https://evanlemmons.github.io/worship-music-school/
 
 ## What's on the page
 - The vision and the three-part weekly meeting (discipleship → musicianship → playing together)
@@ -17,4 +16,4 @@ This repo is a single, self-contained web page (`index.html`) that presents the 
 - Open questions we're deciding together
 
 ## Editing
-Open `index.html` in any editor. To regenerate it from source, the underlying content lives in the Cowork project "Worship Music School."
+This `index.html` is generated — don't hand-edit it. The source lives at the repo root: prose in `content/*.md`, tabular data in `data/*.csv`. Edit those, then run `python3 build/build_site.py` from the repo root to regenerate this file. See `CLAUDE.md` at the repo root for the full map.

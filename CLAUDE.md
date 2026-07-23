@@ -19,7 +19,7 @@ This repo holds the plan as source-of-truth content and generates a public web p
 - `data/` — tabular source of truth.
   - `rollout_schedule.csv` — the 22-meeting grid: Week, Date, Term, Discipleship, Passage, Musicianship, Playing Together, Notes.
   - `song_library.csv` — 45 songs: Title, Artist, Type, Key, BPM, Feel, Drums, Bass, Guitar, Keys, Vocals, Overall, Best For, Teaching Focus, Notes. Difficulty columns are 1–5.
-- `site/` — the public web page (GitHub Pages ready).
+- `docs/` — the public web page (GitHub Pages ready).
   - `index.html` — **generated** by `build/build_site.py` from `content/` + `data/`. A single self-contained file (inline CSS/JS; Google Fonts via CDN). Opens with no server.
   - `PUBLISH.md` — how to publish on GitHub Pages. `.nojekyll` — disables Jekyll processing.
 - `build/` — generators (see **Build**).
@@ -27,7 +27,7 @@ This repo holds the plan as source-of-truth content and generates a public web p
 
 ## Source-of-truth rule (important)
 - **Edit by hand:** `content/00,02,03,05,06,07` and `data/*.csv`.
-- **Regenerate, never hand-edit:** `content/01`, `content/04`, `site/index.html`, `deliverables/*`.
+- **Regenerate, never hand-edit:** `content/01`, `content/04`, `docs/index.html`, `deliverables/*`.
 
 To change the schedule or songs, edit the CSV in `data/`, then rebuild. To change prose, edit the relevant `content/*.md`, then rebuild the site.
 
@@ -37,14 +37,14 @@ Scripts resolve their own paths, so they can be run from anywhere. **Dependencie
 Regenerate the site after editing content or data:
 ```bash
 python3 build/build_markdown_docs.py   # content/01 + content/04 (from data/*.csv)
-python3 build/build_site.py            # site/index.html   <- the important one
+python3 build/build_site.py            # docs/index.html   <- the important one
 ```
 Regenerate the polished deliverables (optional):
 ```bash
 python3 build/build_xlsx.py            # deliverables/*.xlsx
 node    build/build_plan_docx.js       # deliverables/*.docx   (needs `npm i docx`)
 ```
-Preview the page: open `site/index.html` in a browser.
+Preview the page: open `docs/index.html` in a browser.
 
 **Seed generators (optional / provenance):** `build/build_songs.py` and `build/build_schedule.py` recreate `data/*.csv` from Python literals inside them. ⚠️ Running them **overwrites** the CSVs — only use them to reset from seed (or keep the literals in sync with the CSVs). For normal work, edit the CSVs directly and skip these.
 
@@ -61,6 +61,6 @@ Complete first draft. The page is built and was shared for discussion. It is **n
 Meeting night/time: **confirmed** — Sunday evenings, ~60 min, from Sep 6, 2026. Still open: ages (assumed middle + high, ~12–18) · experience (assumed a wide mix — hence tiered parts) · group size (one band of ~5–12; splits into two).
 
 ## Roadmap / next
-1. **Publish** `site/` to GitHub Pages under Evan's account (see `site/PUBLISH.md`); set up a change → rebuild → push loop so the live page stays current.
+1. **Publish** `docs/` to GitHub Pages under Evan's account (see `docs/PUBLISH.md`); set up a change → rebuild → push loop so the live page stays current.
 2. **Work the open decisions** in `content/07-logistics-safety.md` (also shown in the page's "Open questions" section); update content as they're settled.
 3. **Grow the page into a per-week resource hub** — per-song charts, chord sheets, and reference-track links organized by week (the "students download this week's songs" idea). The song and schedule data are structured to support this.
