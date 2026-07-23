@@ -42,15 +42,14 @@ def crows(key):                    # bulleted slot -> list of ' | '-split field 
     return rows
 
 # ---------- term-split collapsibles ----------
-def term_details(path, open_first=True):
+def term_details(path):
     text = open(os.path.join(CONTENT, path)).read()
     parts = text.split("\n## ")
     intro = strip_h1(parts[0]).strip()
     out = [f'<div class="prose lead">{md2html(intro)}</div>']
-    for i, p in enumerate(parts[1:]):
+    for p in parts[1:]:
         nl = p.index("\n"); title = p[:nl].strip(); body = p[nl+1:]
-        op = " open" if (open_first and i == 0) else ""
-        out.append(f'<details class="wk"{op}><summary>{html.escape(title)}</summary>'
+        out.append(f'<details class="wk"><summary>{html.escape(title)}</summary>'
                    f'<div class="prose">{md2html(body)}</div></details>')
     return "\n".join(out)
 
@@ -60,94 +59,35 @@ def full_details(path, summary, teaser):
             f'<details class="deep"><summary>{html.escape(summary)}</summary>'
             f'<div class="prose">{md2html(text)}</div></details>')
 
-# ---------- resources (per-song chart / chord chart / reference track links) ----------
-RES_KINDS = [("Chart URL", "chart", "Chart"), ("Chord Chart URL", "chords", "Chords"), ("Reference Track URL", "track", "Track")]
-
-def load_song_resources():
-    data = read_csv(os.path.join(DATA, "song_library.csv"))
-    head = data[0]; idx = {c: i for i, c in enumerate(head)}
-    out = {}
-    for r in data[1:]:
-        out[r[idx["Title"]]] = {col: r[idx[col]] for col, _, _ in RES_KINDS}
-    return out
-
-def resource_links_html(titles_field, lib_by_title, empty="&ndash;"):
-    titles = [t for t in titles_field.split("; ") if t]
-    if not titles:
-        return f'<span class="res-empty">{empty}</span>'
-    links = []
-    any_link = False
-    for title in titles:
-        res = lib_by_title.get(title, {})
-        for col, cls, label in RES_KINDS:
-            url = res.get(col, "")
-            if url:
-                any_link = True
-                links.append(f'<a class="reslink r-{cls}" href="{html.escape(url)}" target="_blank" rel="noopener">{label}</a>')
-    if not any_link:
-        names = html.escape(", ".join(titles))
-        return f'<span class="res-empty" title="{names}">Coming soon</span>'
-    return "".join(links)
-
 # ---------- schedule ----------
-def meter(label, val):
-    val = int(val)
-    segs = "".join(
-        f'<i class="s s{k}{" on" if k <= val else ""}"></i>' for k in range(1, 6))
-    return (f'<span class="meter" role="img" aria-label="{label} difficulty {val} of 5" '
-            f'title="{label}: {val}/5">{segs}</span>')
-
 def schedule_html():
-    rows = read_csv(os.path.join(DATA, "rollout_schedule.csv"))[1:]
-    lib_by_title = load_song_resources()
+    """Bible-study + musicianship arc. Week numbers are computed (meetings counted
+    in order), so toggling a date's Status between meeting/off needs no renumbering."""
+    rows = read_csv(os.path.join(DATA, "rollout_schedule.csv"))
+    head = rows[0]; idx = {c: i for i, c in enumerate(head)}
     trs = []
-    for r in rows:
-        wk, date, term, disc, pas, mus, song, song_titles, notes = r
-        is_break = wk == "—"
-        cls = "brk" if is_break else term.lower()
-        mile = any(k in notes for k in ("MILESTONE", "SHOWCASE", "LAUNCH"))
-        notes_html = html.escape(notes)
-        if mile:
-            notes_html = f'<span class="mile">{notes_html}</span>'
-        res_html = resource_links_html(song_titles, lib_by_title, empty="&mdash;") if not is_break else '<span class="res-empty">&mdash;</span>'
-        trs.append(
-            f'<tr class="{cls}">'
-            f'<td class="col-week mono">{html.escape(wk)}</td>'
-            f'<td class="col-date">{html.escape(date)}</td>'
-            f'<td class="col-term"><span class="tg tg-{cls}">{html.escape(term)}</span></td>'
-            f'<td class="col-disc">{html.escape(disc)}</td>'
-            f'<td class="col-pass mono2">{html.escape(pas)}</td>'
-            f'<td class="col-mus">{html.escape(mus)}</td>'
-            f'<td class="col-song">{html.escape(song)}</td>'
-            f'<td class="col-res">{res_html}</td>'
-            f'<td class="col-notes">{notes_html}</td></tr>')
+    wk = 0
+    for r in rows[1:]:
+        date = r[idx["Date"]]; term = r[idx["Term"]]
+        is_meeting = r[idx["Status"]].strip().lower() == "meeting"
+        if is_meeting:
+            wk += 1
+            cls = term.lower()
+            trs.append(
+                f'<tr class="{cls}">'
+                f'<td class="col-week mono">{wk}</td>'
+                f'<td class="col-date">{html.escape(date)}</td>'
+                f'<td class="col-disc">{html.escape(r[idx["Discipleship (~15 min)"]])}</td>'
+                f'<td class="col-pass mono2">{html.escape(r[idx["Passage (NIV)"]])}</td>'
+                f'<td class="col-mus">{html.escape(r[idx["Musicianship (~20 min)"]])}</td></tr>')
+        else:
+            label = html.escape(r[idx["Note"]] or "Break")
+            trs.append(
+                f'<tr class="brk">'
+                f'<td class="col-week mono">—</td>'
+                f'<td class="col-date">{html.escape(date)}</td>'
+                f'<td class="col-disc" colspan="3">— {label} · no meeting —</td></tr>')
     return "\n".join(trs)
-
-# ---------- songs ----------
-def songs_html():
-    data = read_csv(os.path.join(DATA, "song_library.csv"))
-    head = data[0]; idx = {c: i for i, c in enumerate(head)}
-    rows = []
-    for r in data[1:]:
-        t = r[idx["Type"]].lower()
-        res_html = resource_links_html(r[idx["Title"]], {r[idx["Title"]]: {col: r[idx[col]] for col, _, _ in RES_KINDS}})
-        rows.append(
-            f'<tr data-type="{t}">'
-            f'<td class="song"><div class="t">{html.escape(r[idx["Title"]])}</div>'
-            f'<div class="a">{html.escape(r[idx["Artist"]])}</div>'
-            f'<div class="tf">{html.escape(r[idx["Teaching Focus"]])}</div></td>'
-            f'<td><span class="chip c-{t}">{html.escape(r[idx["Type"]])}</span>'
-            f'<div class="bf">{html.escape(r[idx["Best For"]])}</div></td>'
-            f'<td class="mono ctr">{html.escape(r[idx["Key"]])}</td>'
-            f'<td class="mono ctr">{html.escape(r[idx["BPM"]])}</td>'
-            f'<td class="ctr">{meter("Drums", r[idx["Drums"]])}</td>'
-            f'<td class="ctr">{meter("Bass", r[idx["Bass"]])}</td>'
-            f'<td class="ctr">{meter("Guitar", r[idx["Guitar"]])}</td>'
-            f'<td class="ctr">{meter("Keys", r[idx["Keys"]])}</td>'
-            f'<td class="ctr">{meter("Vocals", r[idx["Vocals"]])}</td>'
-            f'<td class="ctr">{meter("Overall", r[idx["Overall"]])}</td>'
-            f'<td class="col-res">{res_html}</td></tr>')
-    return "\n".join(rows)
 
 CSS = r"""
 :root{
@@ -183,6 +123,18 @@ nav .brand .dot{color:var(--amber-2)}
 nav a.lnk{font-size:.86rem;color:var(--ink-soft);text-decoration:none;padding:.4rem .7rem;
   border-radius:8px;white-space:nowrap;font-weight:500}
 nav a.lnk:hover{background:var(--paper-2);color:var(--pine-800)}
+nav a.lnk.active{background:var(--pine-800);color:#fff}
+.tbd{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:22px 24px;margin-top:18px;max-width:70ch}
+.tbd-tag{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.1em;
+  background:var(--amber-soft);color:#8a5a12;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:3px}
+.tbd p{margin:0;color:var(--ink-soft)}
+.leader-hero{background:var(--pine-800);color:#eaf3f0;padding:60px 0 48px}
+.leader-hero .eyebrow{color:var(--amber)}
+.leader-hero h1{font-family:"Fraunces",serif;font-size:clamp(2rem,5vw,3rem);margin:.2rem 0 .6rem;color:#fff;line-height:1.05}
+.leader-hero p{max-width:64ch;color:#cfe0dc;margin:0}
+nav a.lnk.ext{color:var(--amber-2);font-weight:600}
+nav a.lnk.ext:hover{background:var(--amber-soft);color:var(--amber-2)}
 
 /* HERO */
 .hero{position:relative;background:radial-gradient(120% 120% at 78% -10%,#1c565c 0%,var(--pine-800) 42%,var(--pine-900) 100%);
@@ -338,17 +290,23 @@ for i in range(30):
     h = 12 + (i * 7) % 40
     eq_bars += f'<span class="eq-bar" style="animation-duration:{dur:.2f}s;animation-delay:{delay:.2f}s;height:{h}%"></span>'
 
-def song_type_counts():
-    data = read_csv(os.path.join(DATA, "song_library.csv"))
-    idx = {c: i for i, c in enumerate(data[0])}
-    counts = {"all": len(data) - 1}
-    for r in data[1:]:
-        t = r[idx["Type"]].lower()
-        counts[t] = counts.get(t, 0) + 1
-    return counts
+def nav_html(links, extra=""):
+    """links: list of (href, label). extra: trailing raw HTML (e.g. an external link)."""
+    items = "".join(f'<a class="lnk" href="{h}">{_inline(l)}</a>' for h, l in links)
+    return f"""
+<nav><div class="wrap">
+<span class="brand">{ci("nav_brand")} <span class="dot">●</span></span>
+{items}{extra}
+</div></nav>
+"""
 
-nav_links_html = "".join(
-    f'<a class="lnk" href="#{a}">{_inline(l)}</a>' for a, l in crows("nav_links"))
+# The leader page is intentionally NOT linked from the landing nav (kept low-profile
+# for sign-up visitors); leaders reach it by URL. Add a (…, 'leader.html') ext link here
+# if you'd rather make it discoverable.
+landing_nav = nav_html([(f'#{a}', l) for a, l in crows("nav_links")])
+leader_nav = nav_html([('#behind', 'Setup'), ('#discuss', 'Open questions')],
+                      extra='<a class="lnk ext" href="index.html">← Main page</a>')
+
 hero_facts_html = "".join(
     f'<span><span class="k">{_inline(lab)}</span> &nbsp;<b>{_inline(val)}</b></span>'
     for lab, val in crows("hero_facts"))
@@ -371,12 +329,6 @@ team_html = "".join(
     f'<div class="mem"><div class="role">{_inline(role)}</div><h4>{_inline(nm)}</h4><p>{_inline(bio)}</p></div>'
     for role, nm, bio in crows("team_members"))
 
-_counts = song_type_counts()
-songs_filters_html = ""
-for _i, (_t, _lab) in enumerate(crows("songs_filters")):
-    _cls = ' class="act"' if _i == 0 else ''
-    songs_filters_html += f'<button{_cls} data-f="{_t}">{_inline(_lab)} {_counts.get(_t, 0)}</button>'
-
 behind_html = "".join(
     full_details(fname, summary, _inline(teaser)) for fname, summary, teaser in crows("behind_cards"))
 
@@ -385,13 +337,6 @@ confirmed_html = "".join(
 assumptions_html = "".join(
     f'<li>{_inline(lab)} <span class="as">{_inline(ann)}</span></li>' for lab, ann in crows("discuss_assumptions"))
 open_html = "".join(f'<li>{_inline(x[0])}</li>' for x in crows("discuss_open"))
-
-NAV = f"""
-<nav><div class="wrap">
-<span class="brand">{ci("nav_brand")} <span class="dot">●</span></span>
-{nav_links_html}
-</div></nav>
-"""
 
 HERO = f"""
 <header class="hero">
@@ -452,9 +397,9 @@ SCHEDULE = f"""
   <p class="lede">{ci("schedule_lede")}</p>
   <div class="tablewrap"><table>
     <thead><tr>
-      <th class="col-week">Wk</th><th class="col-date">Date</th><th class="col-term">Term</th>
+      <th class="col-week">Wk</th><th class="col-date">Date</th>
       <th class="col-disc">Discipleship</th><th class="col-pass">Passage (NIV)</th>
-      <th class="col-mus">Musicianship</th><th class="col-song">Playing together</th><th class="col-res">Resources</th><th class="col-notes">Milestones</th>
+      <th class="col-mus">Musicianship</th>
     </tr></thead>
     <tbody>{schedule_html()}</tbody>
   </table></div>
@@ -481,23 +426,10 @@ SONGS = f"""
 <section id="songs"><div class="wrap reveal">
   <p class="eyebrow">{ci("songs_eyebrow")}</p>
   <h2>{ci("songs_heading")}</h2>
-  <p class="lede">{ci("songs_lede")}</p>
-  <div class="legend">
-    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3"></i><i class="s s4"></i><i class="s s5"></i></span> {ci("songs_legend_easier")}</span>
-    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3 on"></i><i class="s s4 on"></i><i class="s s5"></i></span> {ci("songs_legend_harder")}</span>
-    <span class="lg">{ci("songs_legend_scale")}</span>
+  <div class="tbd">
+    <span class="tbd-tag">TBD</span>
+    <p>{ci("songs_lede")}</p>
   </div>
-  <div class="filters">
-    {songs_filters_html}
-  </div>
-  <div class="tablewrap"><table id="songtable">
-    <thead><tr>
-      <th>Song</th><th>Type</th><th class="ctr">Key</th><th class="ctr">BPM</th>
-      <th class="ctr" title="Drums">Dr</th><th class="ctr" title="Bass">Ba</th><th class="ctr" title="Guitar">Gt</th>
-      <th class="ctr" title="Keys">Ky</th><th class="ctr" title="Vocals">Vo</th><th class="ctr" title="Overall">All</th><th class="col-res">Resources</th>
-    </tr></thead>
-    <tbody>{songs_html()}</tbody>
-  </table></div>
 </div></section>
 """
 
@@ -531,21 +463,31 @@ FOOTER = f"""
 </div></footer>
 """
 
+LEADER_HERO = f"""
+<header class="leader-hero"><div class="wrap">
+  <p class="eyebrow">{ci("leader_eyebrow")}</p>
+  <h1>{ci("leader_title")}</h1>
+  <p>{ci("leader_intro")}</p>
+</div></header>
+"""
+
 SCRIPT = """
 <script>
-// song filter (in-memory only)
-const btns=document.querySelectorAll('.filters button');
-const rows=[...document.querySelectorAll('#songtable tbody tr')];
-btns.forEach(b=>b.addEventListener('click',()=>{
-  btns.forEach(x=>x.classList.remove('act'));b.classList.add('act');
-  const f=b.dataset.f;
-  rows.forEach(r=>{r.style.display=(f==='all'||r.dataset.type===f)?'':'none';});
-}));
 // reveal on scroll
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+// scrollspy: highlight the nav link for the section crossing the viewport middle
+const spy=[...document.querySelectorAll('nav a.lnk')].filter(a=>(a.getAttribute('href')||'').startsWith('#'));
+const byId=new Map(spy.map(a=>[a.getAttribute('href').slice(1),a]));
+const secs=spy.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+if(secs.length){
+  const spyIO=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){spy.forEach(a=>a.classList.remove('active'));const a=byId.get(e.target.id);if(a)a.classList.add('active');}});
+  },{rootMargin:'-50% 0px -50% 0px',threshold:0});
+  secs.forEach(s=>spyIO.observe(s));
+}
 </script>
 """
 
@@ -553,39 +495,42 @@ FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='
            "<rect width='32' height='32' rx='7' fill='%23123a40'/>"
            "<path d='M20 7l-9 2v11.5a3.2 3.2 0 1 0 2 3V13l7-1.6v6.1a3.2 3.2 0 1 0 2 3V7z' fill='%23dc9a34'/></svg>")
 
-HTML = f"""<!doctype html>
+FONTS = '<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">'
+
+def page(title, description, nav, body):
+    return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{cattr("meta_title")}</title>
-<meta name="description" content="{cattr("meta_description")}">
-<meta property="og:title" content="{cattr("og_title")}">
-<meta property="og:description" content="{cattr("og_description")}">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<meta property="og:title" content="{title}">
 <meta property="og:type" content="website">
 <link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+{FONTS}
 <style>{CSS}</style>
 </head>
 <body>
-{NAV}
-{HERO}
-{OVERVIEW}
-{RHYTHM}
-{TERMS}
-{SCHEDULE}
-{STUDIES}
-{MUSIC}
-{SONGS}
-{BEHIND}
-{DISCUSS}
+{nav}
+{body}
 {FOOTER}
 {SCRIPT}
 </body>
 </html>"""
 
+# ---- Landing page: for anyone interested / involved ----
+index_body = HERO + OVERVIEW + RHYTHM + TERMS + SCHEDULE + STUDIES + MUSIC + SONGS
+index_html = page(cattr("meta_title"), cattr("meta_description"), landing_nav, index_body)
 with open(os.path.join(SITE, "index.html"), "w") as f:
-    f.write(HTML)
-print(f"Wrote index.html ({len(HTML):,} bytes)")
+    f.write(index_html)
+
+# ---- Leader page: setup + open questions, separate from the landing page ----
+leader_body = LEADER_HERO + BEHIND + DISCUSS
+leader_html = page(cattr("leader_meta_title"), cattr("leader_meta_description"), leader_nav, leader_body)
+with open(os.path.join(SITE, "leader.html"), "w") as f:
+    f.write(leader_html)
+
+print(f"Wrote index.html ({len(index_html):,} bytes) and leader.html ({len(leader_html):,} bytes)")

@@ -2,6 +2,26 @@
 
 Working notes from each session on Worship Music School — decisions and why, not a diff dump (see `git log` for that).
 
+## 2026-07-23 (session 3) — structural cleanup
+
+**Decided (Evan's direction):**
+- Meeting header: drop "Kennesaw, GA" (everyone knows) and the "a night / first terms / draft v1" chips; keep just launch + rhythm.
+- Schedule table is only the **Bible-study + musicianship** overview — songs vary by who attends, so drop the Term, Playing-together, Resources, and Milestones columns.
+- **Jan 3 is an off week.** To keep all 22 sessions, winter shifts one week: now **Jan 10 – Feb 28** (Jan 3 joins the Christmas break).
+- **Song library removed from the backend** — the 45 stored songs are gone (kept in git history). The site keeps a Song section but marked **TBD**; songs get picked once we see who shows up and can match skill levels, growing kids over time. Added manually later.
+- **Leader content moved to its own page.** Setup + Open-questions now live on `docs/leader.html`, separate from the landing page (which is for sign-ups / eventually an involvement hub). Not linked from the landing nav; public URL (static hosting can't password-protect it).
+- No admin panel — a static GitHub Pages site can't securely host one; calendar/topic edits go through Claude (or direct CSV edits).
+
+**Changed:**
+- **Calendar model:** `data/rollout_schedule.csv` is now one row per Sunday with a `Status` (meeting/off) column; **week numbers are computed at build time**, so toggling a date on/off never needs renumbering. Columns trimmed to Date, Term, Status, Discipleship, Passage, Musicianship, Note. This is the "easy calendar" backend for the on/off + topic edits Evan wanted.
+- Studies/Musicianship week headers had their dates removed ("Week 15 — …") so calendar shifts never touch that prose.
+- `build_site.py` now generates **two pages** (index.html + leader.html) from a shared shell; removed the song table / difficulty-meter / resource-link machinery; added **scrollspy** (active section highlights in the sticky nav) and made **all collapsibles closed by default**.
+- Removed `data/song_library.csv`, `build/build_songs.py`, `build/build_schedule.py`, and the Song Library `.xlsx` deliverable. `content/04` is now a hand-written TBD stub (no longer generated). `build_xlsx.py` builds schedule-only.
+- Propagated the winter-date shift + song removal through content/00, both READMEs, CLAUDE.md, and the docx generator.
+- Verified both pages by headless screenshot: hero, trimmed schedule (Jan 3 off, Feb 28 = wk 22), TBD song box, and the separate leader page all render correctly.
+
+**Open:** unchanged from below (Showcase format, room, budget, PC admin owner, gear, logo/brand; experience-mix & group-size assumptions). Also: the difficulty-meter motif + per-song resources return when a repertoire settles. `Program Plan.pdf` still stale vs `.docx` (no LibreOffice locally).
+
 ## 2026-07-23 (session 2)
 
 **Decided:**

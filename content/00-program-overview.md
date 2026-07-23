@@ -49,7 +49,7 @@ We treat September through February as two connected terms with a natural break 
 
 **Fall term — "What Is Worship?" (Sept 6 – Dec 13, ~14 weeks).** Foundations. Discipleship builds a biblical theology of worship-as-life. Musicianship covers the ecosystem of playing — gear, signal flow, in-ears, click, charts, rehearsing. Repertoire starts with accessible four-chord worship songs and grows. The term ends in a **Showcase** the week before Christmas break, where the students play the songs they've built — for each other, for parents, or folded into a youth service.
 
-**Winter term — "The Worshiping Life" (Jan 3 – Feb 21, ~8 weeks).** Deepening. Discipleship moves into the Psalms and the character of a worship leader. Musicianship moves into gear deep-dives, set planning, leading versus playing, and self-review. The band works toward playing a full, connected set rather than isolated songs.
+**Winter term — "The Worshiping Life" (Jan 10 – Feb 28, ~8 weeks).** Deepening. Discipleship moves into the Psalms and the character of a worship leader. Musicianship moves into gear deep-dives, set planning, leading versus playing, and self-review. The band works toward playing a full, connected set rather than isolated songs.
 
 A detailed week-by-week map lives in **"01 — Weekly Rhythm & Rollout Schedule."**
 
@@ -74,9 +74,9 @@ We're watching for four things: students can *explain* what worship is in their 
 
 **Sept 6 – Dec 13 (Fall term):** weekly meetings; first-song milestone; Thanksgiving-week break (Nov 22); Fall Showcase (Dec 13).
 
-**Dec 20 & 27:** Christmas break, no meetings.
+**Dec 20, 27 & Jan 3:** Christmas & New Year break, no meetings.
 
-**Jan 3 – Feb 21 (Winter term):** weekly meetings; full-set milestone; plan spring term and any spring showcase or team placements.
+**Jan 10 – Feb 28 (Winter term):** weekly meetings; full-set milestone; plan spring term and any spring showcase or team placements.
 
 ## What we'd ask of the church
 

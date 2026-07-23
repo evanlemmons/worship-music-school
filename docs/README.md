@@ -2,18 +2,17 @@
 
 A weekly discipleship & development group for young musicians at **North Metro Church** (Kennesaw, GA) — Bible study, real musician skills, and playing together as a band.
 
-This repo is a single, self-contained web page (`index.html`) that presents the first-draft plan for the first two terms (Sept 2026 – Feb 2027). It's meant to be shared publicly so leaders, parents, and students can look it over and talk about next steps. There's no build step and no dependencies — it's one HTML file.
+This folder holds two self-contained pages presenting the plan for the first two terms (Sept 2026 – Feb 2027). No build step, no dependencies — just HTML.
 
-**Live page:** https://evanlemmons.github.io/worship-music-school/
+- **`index.html`** — the landing page (families/students). **Live:** https://evanlemmons.github.io/worship-music-school/
+- **`leader.html`** — a separate leader page (setup, promotion, logistics, open decisions). Not linked from the landing nav; reach it at `…/leader.html`. Public URL — a static site can't password-protect it.
 
-## What's on the page
+## What's on the landing page
 - The vision and the three-part weekly meeting (discipleship → musicianship → playing together)
 - The two-term arc and milestones (including a Fall Showcase)
-- The full 22-week rollout schedule
+- The 22-week Bible-study + musicianship rollout schedule
 - The discipleship / Bible-study arc and the musicianship topic arc
-- A 45-song library with difficulty rated per instrument
-- Planning Center setup, a promotion & communication kit, and logistics
-- Open questions we're deciding together
+- A song section (TBD — repertoire chosen once the roster settles)
 
 ## Editing
-This `index.html` is generated — don't hand-edit it. The source lives at the repo root: landing-page copy (hero, section intros, cards, team, open questions) in `content/site-copy.md`, deep-content prose in `content/*.md`, tabular data in `data/*.csv`. Edit those, then run `python3 build/build_site.py` from the repo root to regenerate this file. See `CLAUDE.md` at the repo root for the full map.
+Both pages are generated — don't hand-edit `index.html` / `leader.html`. Source lives at the repo root: page copy (hero, section intros, cards, team, open questions, leader-page text) in `content/site-copy.md`; deep-content prose in `content/*.md`; the calendar in `data/rollout_schedule.csv`. Edit those, then run `python3 build/build_site.py` from the repo root. See `CLAUDE.md` at the repo root for the full map.

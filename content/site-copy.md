@@ -37,11 +37,9 @@ Worship Music School
 - studies | Studies
 - musicianship | Musicianship
 - songs | Songs
-- behind | Setup
-- discuss | Discuss
 
 ## hero_eyebrow
-North Metro Church · Kennesaw, GA
+North Metro Church
 
 ## hero_title
 Worship Music School
@@ -55,9 +53,6 @@ Forming young musicians into worshipers first and skilled, stage-ready band memb
 ## hero_facts
 - launch | Sun · Sep 6, 2026
 - rhythm | Weekly · ~60 min
-- a night | 3 sections
-- first terms | 22 meetings · Sep–Feb
-- draft v1 | for discussion
 
 ## overview_eyebrow
 The idea
@@ -96,11 +91,11 @@ Two terms, one break at Christmas
 
 ## terms_list
 - Fall | Sep 6 – Dec 13 | 14 weeks | “What Is Worship?” | Foundations. A biblical theology of worship-as-life; the ecosystem of playing (gear, signal flow, in-ears, click, charts, rehearsing); accessible worship songs that grow in difficulty.
-- Winter | Jan 3 – Feb 21 | 8 weeks | “The Worshiping Life” | Deepening. The Psalms and the character of a worship leader; gear deep-dives, set planning, leading vs. playing, and self-review; the band works toward a full, connected set.
+- Winter | Jan 10 – Feb 28 | 8 weeks | “The Worshiping Life” | Deepening. The Psalms and the character of a worship leader; gear deep-dives, set planning, leading vs. playing, and self-review; the band works toward a full, connected set.
 
 ## terms_milestones
 - Fall Showcase — Dec 13 · the term’s repertoire performed for families / a service
-- A full connected set — Feb 21 · planned, flowing, with transitions; then plan spring
+- A full connected set — Feb 28 · planned, flowing, with transitions; then plan spring
 
 ## team_eyebrow
 Who leads
@@ -117,7 +112,7 @@ Week by week
 The rollout schedule
 
 ## schedule_lede
-All 22 meetings, with each week’s Bible study, musicianship topic, and song lined up together. Dates run Sunday evenings from Sep 6. Tap a week’s **Resources** for that song’s chart, chords, and reference track as they’re added.
+All 22 meetings of the Bible-study and musicianship arc, week by week. Dates run Sunday evenings from Sep 6; off weeks (holidays and breaks) are marked. Songs are chosen each week to fit who’s in the room, so they’re not programmed here.
 
 ## studies_eyebrow
 Section 01 · the full arc
@@ -132,28 +127,13 @@ Section 02 · the full arc
 Musicianship topics
 
 ## songs_eyebrow
-Section 03 · the backlog
+Section 03 · repertoire
 
 ## songs_heading
 Song library
 
 ## songs_lede
-45 songs — mostly worship, a Christmas set for the Showcase, and secular change-ups for range. Difficulty is rated 1–5 *per instrument*, shown as input-level meters, so a beginner and an advanced player can take the same song and both be challenged.
-
-## songs_legend_easier
-easier
-
-## songs_legend_harder
-harder
-
-## songs_legend_scale
-**1** very easy · **3** intermediate · **5** a feature part
-
-## songs_filters
-- all | All
-- worship | Worship
-- christmas | Christmas
-- secular | Secular
+Coming soon. We're holding off on a fixed song list until we see who shows up and can gauge skill levels across the instruments. Then we'll pick songs that fit the players in the room — a beginner and an advanced player can share a song when the parts are chosen well — and step the difficulty up as kids grow. Repertoire leans worship, with the occasional secular change-up for range and fun.
 
 ## behind_eyebrow
 Making it run
@@ -213,3 +193,18 @@ Have a reaction, a name idea, or a student in mind? That’s exactly what this p
 
 ## footer_right
 Draft v1 · July 2026 · for discussion
+
+## leader_meta_title
+Worship Music School — Leader Guide
+
+## leader_meta_description
+Behind-the-scenes guide for Worship Music School leaders: Planning Center setup, promotion and communication, logistics and safety, and the open decisions we're still working.
+
+## leader_eyebrow
+Leaders only · behind the scenes
+
+## leader_title
+Leader Guide
+
+## leader_intro
+The operational side of running the group — setup, promotion, logistics, and the decisions still open. This is the working reference for the leadership team, kept separate from the main page we share with families and students.
