@@ -15,6 +15,7 @@ This repo holds the plan as source-of-truth content and generates a public web p
 ## Repository layout
 - `content/` — the plan, in markdown.
   - Hand-written (edit these): `00-program-overview.md`, `02-discipleship-track.md`, `03-musicianship-track.md`, `05-planning-center-setup.md`, `06-promotion-communication.md`, `07-logistics-safety.md`, `README.md`.
+  - `site-copy.md` — **all editable landing-page text** for `docs/index.html` (hero, section headings/ledes, the three cards, team bios, open-questions lists, footer, meta tags). Hand-written. Slots are `## key` blocks; `build/build_site.py` reads them, so the page's *words* are edited here while its *structure* (layout, CSS, tables) stays in the build script. Not every string is here — table column headers and the section chrome stay in the build script.
   - **Generated** (do not hand-edit): `01-weekly-rhythm-schedule.md`, `04-song-library.md` — built from `data/` by `build/build_markdown_docs.py`.
 - `data/` — tabular source of truth.
   - `rollout_schedule.csv` — the 22-meeting grid: Week, Date, Term, Discipleship, Passage, Musicianship, Playing Together, Notes.
@@ -26,10 +27,10 @@ This repo holds the plan as source-of-truth content and generates a public web p
 - `deliverables/` — **generated** polished outputs (Program Plan `.docx`/`.pdf`, Rollout Schedule `.xlsx`, Song Library `.xlsx`) for sharing/printing.
 
 ## Source-of-truth rule (important)
-- **Edit by hand:** `content/00,02,03,05,06,07` and `data/*.csv`.
+- **Edit by hand:** `content/00,02,03,05,06,07`, `content/site-copy.md`, and `data/*.csv`.
 - **Regenerate, never hand-edit:** `content/01`, `content/04`, `docs/index.html`, `deliverables/*`.
 
-To change the schedule or songs, edit the CSV in `data/`, then rebuild. To change prose, edit the relevant `content/*.md`, then rebuild the site.
+To change the schedule or songs, edit the CSV in `data/`, then rebuild. To change the deep-content prose (studies, musicianship topics, setup/promo/logistics), edit the relevant `content/*.md`. To change the landing-page copy (hero, section intros, cards, team, open questions), edit `content/site-copy.md`. Either way, rebuild the site after.
 
 ## Build
 Scripts resolve their own paths, so they can be run from anywhere. **Dependencies:** `pip install markdown openpyxl`; for the Word doc, Node with `npm i docx`; LibreOffice is optional (used to render PDFs).

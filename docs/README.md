@@ -16,4 +16,4 @@ This repo is a single, self-contained web page (`index.html`) that presents the 
 - Open questions we're deciding together
 
 ## Editing
-This `index.html` is generated — don't hand-edit it. The source lives at the repo root: prose in `content/*.md`, tabular data in `data/*.csv`. Edit those, then run `python3 build/build_site.py` from the repo root to regenerate this file. See `CLAUDE.md` at the repo root for the full map.
+This `index.html` is generated — don't hand-edit it. The source lives at the repo root: landing-page copy (hero, section intros, cards, team, open questions) in `content/site-copy.md`, deep-content prose in `content/*.md`, tabular data in `data/*.csv`. Edit those, then run `python3 build/build_site.py` from the repo root to regenerate this file. See `CLAUDE.md` at the repo root for the full map.
