@@ -119,11 +119,11 @@ children.push(P([
 
 // Terms
 children.push(H1("The first two terms"));
-children.push(P("We treat September through February as two connected terms with a natural break at Christmas. A detailed, week-by-week schedule and a full song library are provided as companion spreadsheets."));
+children.push(P("We treat September through February as two connected terms with a natural break at Christmas. A detailed, week-by-week schedule is provided as a companion spreadsheet."));
 children.push(table([1150, 1500, 4310, 2400], [
   ["Term", "Dates", "What we cover", "Milestone"],
   ["Fall — “What Is Worship?”", "Sep 6 – Dec 13 (14 wks)", "Foundations. A biblical theology of worship-as-life; the ecosystem of playing (gear, signal flow, in-ears, click, charts, rehearsing); accessible worship songs that grow in difficulty.", "Fall Showcase (Dec 13) — the term's repertoire performed for families / a service."],
-  ["Winter — “The Worshiping Life”", "Jan 3 – Feb 21 (8 wks)", "Deepening. The Psalms and the character of a worship leader; gear deep-dives, set planning, leading vs. playing, and self-review; the band works toward a full, connected set.", "A full connected set (Feb 21) — planned, flowing, with transitions; plan spring."],
+  ["Winter — “The Worshiping Life”", "Jan 10 – Feb 28 (8 wks)", "Deepening. The Psalms and the character of a worship leader; gear deep-dives, set planning, leading vs. playing, and self-review; the band works toward a full, connected set.", "A full connected set (Feb 28) — planned, flowing, with transitions; plan spring."],
 ]));
 
 // Milestones + measures
@@ -139,7 +139,7 @@ children.push(table([2600, 1900, 4860], [
   ["Promotion push", "Late Aug → Sep 6", "On-stage announcements, parent emails, socials; registrations close and roster is set; leaders pre-learn the first songs; gather loaner gear."],
   ["Fall term", "Sep 6 – Dec 13", "Weekly meetings; first-song milestone (~wk 4); Thanksgiving-week break (Nov 22); Fall Showcase (Dec 13)."],
   ["Christmas break", "Dec 23 & 30", "No meetings."],
-  ["Winter term", "Jan 3 – Feb 21", "Weekly meetings; full-set milestone; plan spring term and any team placements."],
+  ["Winter term", "Jan 10 – Feb 28", "Weekly meetings; full-set milestone; plan spring term and any team placements."],
 ]));
 
 // Ask of church
@@ -159,7 +159,7 @@ children.push(bullet("Group size: designed for a single band of roughly 5–12, 
 
 // Repository appendix
 children.push(H1("The full plan is already built out"));
-children.push(P("Behind this summary sits a complete, organized repository the leaders can run the program from and grow over time: the program overview; a week-by-week rollout schedule (also a spreadsheet); the discipleship / Bible-study arc; the musicianship topic arc; a song library of ~45 songs rated by difficulty per instrument (also a spreadsheet); a Planning Center setup guide; a promotion and communication kit with ready-to-send templates; and a logistics, safety, and open-questions file. Everything is drafted and ready to refine together."));
+children.push(P("Behind this summary sits a complete, organized repository the leaders can run the program from and grow over time: the program overview; a week-by-week rollout schedule (also a spreadsheet); the discipleship / Bible-study arc; the musicianship topic arc; a Planning Center setup guide; a promotion and communication kit with ready-to-send templates; and a logistics, safety, and open-questions file. Song repertoire is chosen week to week to fit who attends, so it isn't fixed here. Everything is drafted and ready to refine together."));
 
 const doc = new Document({
   creator: "Worship Music School",

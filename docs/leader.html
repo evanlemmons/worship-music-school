@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worship Music School — Leader Guide</title>
+<meta name="description" content="Behind-the-scenes guide for Worship Music School leaders: Planning Center setup, promotion and communication, logistics and safety, and the open decisions we&#x27;re still working.">
+<meta property="og:title" content="Worship Music School — Leader Guide">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23123a40'/><path d='M20 7l-9 2v11.5a3.2 3.2 0 1 0 2 3V13l7-1.6v6.1a3.2 3.2 0 1 0 2 3V7z' fill='%23dc9a34'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine-900:#0d262b; --pine-800:#123a40; --pine-700:#1a4b51; --pine-600:#256169;
+  --pine-300:#8fb6b4; --paper:#fbf8f2; --paper-2:#f2ede2; --card:#ffffff;
+  --ink:#182a2c; --ink-soft:#4d5f60; --line:#e3dccd; --amber:#dc9a34; --amber-2:#c8842a;
+  --amber-soft:#f6e6c3; --good:#4fa07c; --mid:#dc9a34; --hot:#cd6446; --faint:#d9dad0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Figtree",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.12;
+  letter-spacing:-.01em;color:var(--pine-800)}
+a{color:var(--pine-700)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--amber-2);font-weight:500;margin:0 0 .6rem}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:78px 0;border-top:1px solid var(--line)}
+section > .wrap > h2{font-size:2.05rem;margin:.1rem 0 1.1rem}
+.lede{font-size:1.18rem;color:var(--ink-soft);max-width:60ch}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:6px;height:60px;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav .brand{font-family:"Fraunces",serif;font-weight:600;color:var(--pine-800);
+  font-size:1.05rem;margin-right:auto;white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+nav .brand .dot{color:var(--amber-2)}
+nav a.lnk{font-size:.86rem;color:var(--ink-soft);text-decoration:none;padding:.4rem .7rem;
+  border-radius:8px;white-space:nowrap;font-weight:500}
+nav a.lnk:hover{background:var(--paper-2);color:var(--pine-800)}
+nav a.lnk.active{background:var(--pine-800);color:#fff}
+.tbd{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:22px 24px;margin-top:18px;max-width:70ch}
+.tbd-tag{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.1em;
+  background:var(--amber-soft);color:#8a5a12;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:3px}
+.tbd p{margin:0;color:var(--ink-soft)}
+.leader-hero{background:var(--pine-800);color:#eaf3f0;padding:60px 0 48px}
+.leader-hero .eyebrow{color:var(--amber)}
+.leader-hero h1{font-family:"Fraunces",serif;font-size:clamp(2rem,5vw,3rem);margin:.2rem 0 .6rem;color:#fff;line-height:1.05}
+.leader-hero p{max-width:64ch;color:#cfe0dc;margin:0}
+nav a.lnk.ext{color:var(--amber-2);font-weight:600}
+nav a.lnk.ext:hover{background:var(--amber-soft);color:var(--amber-2)}
+
+/* HERO */
+.hero{position:relative;background:radial-gradient(120% 120% at 78% -10%,#1c565c 0%,var(--pine-800) 42%,var(--pine-900) 100%);
+  color:#eaf3f0;border-top:none;overflow:hidden;padding:96px 0 84px}
+.hero .glow{position:absolute;inset:0;background:radial-gradient(46% 40% at 80% 8%,rgba(220,154,52,.34),transparent 60%);
+  pointer-events:none}
+.hero .wrap{position:relative;z-index:2}
+.hero .eyebrow{color:var(--amber);opacity:.95}
+.hero h1{color:#fff;font-size:clamp(2.7rem,7vw,5rem);font-weight:700;margin:.2rem 0 .5rem;letter-spacing:-.02em}
+.hero h1 .sub{display:block;font-size:clamp(1.05rem,2.2vw,1.5rem);font-weight:400;font-style:italic;
+  color:var(--amber-soft);margin-top:.5rem;letter-spacing:0}
+.hero p.vision{font-size:1.24rem;max-width:56ch;color:#d8e7e3;margin:1.1rem 0 1.7rem}
+.facts{display:flex;flex-wrap:wrap;gap:14px 30px;font-family:"IBM Plex Mono",monospace;
+  font-size:.82rem;letter-spacing:.03em;color:#bcd6d0;border-top:1px solid rgba(255,255,255,.14);padding-top:20px;max-width:760px}
+.facts b{color:#fff;font-weight:600}
+.facts .k{color:var(--amber)}
+/* equalizer signature */
+.eq{position:absolute;right:0;bottom:0;left:0;height:120px;display:flex;align-items:flex-end;
+  gap:5px;padding:0 6px;opacity:.5;z-index:1;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+.eq-bar{flex:1;min-width:3px;background:linear-gradient(180deg,var(--amber),#2a6a70);border-radius:3px 3px 0 0;
+  height:16%;animation:eq 1.7s ease-in-out infinite alternate}
+@keyframes eq{to{height:92%}}
+
+/* CARDS: three-part night */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px}
+.part{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.part .bar{position:absolute;top:0;left:0;right:0;height:5px}
+.part.p1 .bar{background:var(--pine-600)} .part.p2 .bar{background:var(--amber)} .part.p3 .bar{background:var(--hot)}
+.part .num{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-soft);letter-spacing:.1em}
+.part h3{font-size:1.28rem;margin:.5rem 0 .1rem}
+.part .time{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--amber-2);margin-bottom:.6rem}
+.part p{margin:0;color:var(--ink-soft);font-size:.98rem}
+.note{margin-top:20px;font-size:.92rem;color:var(--ink-soft);font-style:italic}
+
+/* TERMS timeline */
+.time-rail{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+.trm{display:grid;grid-template-columns:150px 1fr;gap:20px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:20px 22px}
+.trm .when{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--pine-700);font-weight:500}
+.trm .when .big{display:block;font-family:"Fraunces",serif;font-size:1.35rem;color:var(--pine-800);margin-bottom:.2rem;font-weight:600}
+.trm h3{margin:.1rem 0 .3rem;font-size:1.2rem}
+.trm p{margin:0;color:var(--ink-soft);font-size:.97rem}
+.milestone{display:flex;align-items:center;gap:10px;padding:12px 18px;background:linear-gradient(90deg,var(--amber-soft),transparent);
+  border-left:3px solid var(--amber);border-radius:8px;margin:6px 0;font-weight:500;color:var(--pine-800)}
+.milestone .star{color:var(--amber-2)}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.mem{background:var(--paper-2);border-radius:14px;padding:20px}
+.mem h4{margin:0 0 .3rem;font-size:1.08rem}
+.mem .role{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--amber-2)}
+.mem p{margin:.4rem 0 0;font-size:.92rem;color:var(--ink-soft)}
+
+/* TABLES */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+thead th{background:var(--pine-800);color:#eaf3f0;font-family:"Figtree",sans-serif;font-weight:600;
+  text-align:left;padding:12px 12px;font-size:.8rem;letter-spacing:.02em;position:sticky;top:0}
+tbody td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr.fall td{background:#fdfaf4} tbody tr.winter td{background:#f4f8fa}
+tbody tr.brk td{background:#f0efe9;color:#9a9a90;font-style:italic}
+.mono2{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--ink-soft)}
+.tg{font-family:"IBM Plex Mono",monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;
+  padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tg-fall{background:var(--amber-soft);color:#8a5a12} .tg-winter{background:#dcebf0;color:#1c5763} .tg-brk{background:#e4e3db;color:#8a8a80}
+.mile{background:var(--amber-soft);padding:2px 6px;border-radius:6px;font-weight:600;color:#8a5a12}
+.col-week{text-align:center;font-weight:600;color:var(--pine-700)}
+.col-res{white-space:nowrap}
+.reslink{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.05em;padding:3px 8px;border-radius:20px;margin:0 4px 4px 0;text-decoration:none;
+  background:var(--amber-soft);color:#8a5a12;border:1px solid transparent;transition:.15s}
+.reslink:hover{background:var(--amber);color:#fff}
+.res-empty{font-size:.78rem;color:#9a9a90;font-style:italic}
+
+/* meters */
+.meter{display:inline-flex;gap:2px;align-items:flex-end;height:16px}
+.meter .s{width:5px;height:7px;background:var(--faint);border-radius:1px}
+.meter .s.s2{height:9px}.meter .s.s3{height:11px}.meter .s.s4{height:13px}.meter .s.s5{height:15px}
+.meter .s1.on,.meter .s2.on{background:var(--good)}
+.meter .s3.on,.meter .s4.on{background:var(--mid)}
+.meter .s5.on{background:var(--hot)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin:6px 0 2px;font-size:.86rem;color:var(--ink-soft)}
+.legend .lg{display:inline-flex;align-items:center;gap:7px}
+.song .t{font-weight:600;color:var(--pine-800)} .song .a{font-size:.8rem;color:var(--ink-soft)}
+.song .tf{font-size:.76rem;color:#8a7f6a;margin-top:2px;font-style:italic}
+.ctr{text-align:center}
+.chip{font-family:"IBM Plex Mono",monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;
+  padding:2px 8px;border-radius:20px;white-space:nowrap}
+.c-worship{background:#e2efe8;color:#26674c} .c-christmas{background:#f4e6ee;color:#8a3765} .c-secular{background:#e8ecf4;color:#3a4d7a}
+.bf{font-size:.72rem;color:var(--ink-soft);margin-top:4px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+.filters button{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.04em;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);padding:6px 13px;border-radius:20px;cursor:pointer;transition:.15s}
+.filters button:hover{border-color:var(--pine-300)}
+.filters button.act{background:var(--pine-800);color:#fff;border-color:var(--pine-800)}
+
+/* collapsibles / prose */
+details.wk,details.deep{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+details.wk summary,details.deep summary{cursor:pointer;padding:16px 20px;font-family:"Fraunces",serif;
+  font-weight:600;color:var(--pine-800);font-size:1.1rem;list-style:none;display:flex;align-items:center;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--amber-2);font-size:1.2rem;
+  width:18px;display:inline-block;transition:.2s}
+details[open] summary::before{content:"–"}
+details summary:hover{background:var(--paper-2)}
+.prose{padding:2px 22px 20px}
+.prose.lead{padding:0 2px 6px}
+.prose h3{font-size:1.12rem;color:var(--pine-700);margin:1.2rem 0 .3rem}
+.prose h2{font-size:1.3rem;margin:1.3rem 0 .4rem}
+.prose p{margin:.5rem 0;color:#2c3d3e}
+.prose strong{color:var(--pine-800)}
+.prose ul{margin:.4rem 0 .8rem;padding-left:1.2rem} .prose li{margin:.25rem 0}
+.prose blockquote{margin:.7rem 0;padding:12px 18px;background:var(--paper-2);border-left:3px solid var(--pine-300);
+  border-radius:0 8px 8px 0;color:#33474a;font-size:.95rem}
+.prose hr{border:none;border-top:1px solid var(--line);margin:1.3rem 0}
+.prose code{font-family:"IBM Plex Mono",monospace;font-size:.85em;background:var(--paper-2);padding:1px 5px;border-radius:5px}
+.teaser{color:var(--ink-soft);max-width:64ch}
+
+/* discuss */
+.discuss{background:linear-gradient(135deg,var(--pine-800),var(--pine-900));color:#eaf3f0}
+.discuss h2{color:#fff} .discuss .eyebrow{color:var(--amber)}
+.discuss .lede{color:#cfe0dc}
+.qcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:22px}
+.qbox{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:22px}
+.qbox h3{color:#fff;font-size:1.12rem;margin:0 0 .7rem}
+.qbox ol,.qbox ul{margin:0;padding-left:1.2rem;color:#d3e2de} .qbox li{margin:.4rem 0;font-size:.95rem}
+.qbox .as{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--amber);display:block;margin-top:.1rem}
+
+/* footer */
+footer{background:var(--pine-900);color:#a9c4bf;padding:44px 0;border-top:none;font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+footer b{color:#eaf3f0}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:820px){
+  .grid3,.team{grid-template-columns:1fr} .qcols{grid-template-columns:1fr}
+  .trm{grid-template-columns:1fr;gap:8px} section{padding:56px 0}
+  .col-term,.col-pass{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .eq-bar{animation:none;height:40%} .reveal{transition:none;opacity:1;transform:none} html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+<span class="brand">Worship Music School <span class="dot">●</span></span>
+<a class="lnk" href="#behind">Setup</a><a class="lnk" href="#discuss">Open questions</a><a class="lnk ext" href="index.html">← Main page</a>
+</div></nav>
+
+
+<header class="leader-hero"><div class="wrap">
+  <p class="eyebrow">Leaders only · behind the scenes</p>
+  <h1>Leader Guide</h1>
+  <p>The operational side of running the group — setup, promotion, logistics, and the decisions still open. This is the working reference for the leadership team, kept separate from the main page we share with families and students.</p>
+</div></header>
+
+<section id="behind"><div class="wrap reveal">
+  <p class="eyebrow">Making it run</p>
+  <h2>Setup, promotion &amp; logistics</h2>
+  <p class="lede">The operational side — how we sign people up, spread the word, and cover the practical bases. Expand any section for the full detail.</p>
+  <p class="teaser">Registrations is the front door, People is the roster, Groups is the week-to-week home base, and Services is both the teaching tool and the real thing we’re preparing them for.</p><details class="deep"><summary>Planning Center setup — the full guide</summary><div class="prose"><p><em>Written knowing you work at Planning Center — so this is about how to wire the products together for this specific group, not a tutorial on the buttons.</em></p>
+<p>The clean mental model: <strong>Registrations</strong> is the front door (signup + payment + consent), <strong>People</strong> is the system of record (the roster and the parent/household links), <strong>Groups</strong> is the week-to-week home base (attendance, messaging, resources), and <strong>Services</strong> is the teaching tool <em>and</em> the real thing you're preparing them for (song library, plans, scheduling). You can run the whole program on these four.</p>
+<h2>Registrations — the front door</h2>
+<p>Use a Registration as the signup so you capture consent and (if you want) a materials fee in one flow.</p>
+<ul>
+<li><strong>Signup type:</strong> an event/class-style registration open through early September, with a soft cap that matches your room and leader ratio.</li>
+<li><strong>Attendee vs. account holder:</strong> the student is the attendee; the parent/guardian is the account holder. This matters for minors and keeps billing/communication on the adult.</li>
+<li><strong>Form fields to collect:</strong> student name, grade/age, primary instrument (+ secondary), rough experience level, whether they own/have access to an instrument, allergies/medical notes, and a photo/video <strong>media release</strong> (for the Showcase and promo). Add an emergency contact and a "how'd you hear about it" for future promotion.</li>
+<li><strong>Consent &amp; waiver:</strong> attach your church's standard minor participation + media release as a required agreement.</li>
+<li><strong>Fee (optional):</strong> if there's a materials fee, collect it here; otherwise make it free and just use the form.</li>
+<li><strong>Attendee cap &amp; waitlist:</strong> turn the waitlist on so a strong response becomes next-term's roster rather than a lost lead.</li>
+</ul>
+<p>Registrations pushes attendees into <strong>People</strong> automatically, which is why it's the front door and not a standalone form.</p>
+<h2>People — the system of record</h2>
+<ul>
+<li><strong>Workflow:</strong> build a "Worship Music School – Onboarding" Workflow so every new registrant gets the same steps: welcome email → confirm instrument/experience → add to the Group → parent added to the parent list.</li>
+<li><strong>Lists:</strong> maintain a <strong>Students</strong> list and a <strong>Parents/Guardians</strong> list (via household relationships) so you can message each audience separately.</li>
+<li><strong>Households:</strong> make sure each student is linked to a parent household — this is what lets you email parents and keep minors' communication routed through an adult.</li>
+<li><strong>Field data:</strong> store instrument, experience tier (Beginner/Intermediate/Advanced), and Showcase media-consent as custom fields so you can filter (e.g., "all intermediate bassists").</li>
+<li><strong>Background checks:</strong> confirm all three leaders (and any helpers) are cleared per the church's child-safety policy before Day 1.</li>
+</ul>
+<h2>Groups — the week-to-week home base</h2>
+<p>This is where the group actually lives between meetings.</p>
+<ul>
+<li><strong>One Group:</strong> "Worship Music School (Sun 2026–27)."</li>
+<li><strong>Attendance:</strong> take attendance every week — it's your simplest health metric and helps you follow up with a student who's drifting.</li>
+<li><strong>Messaging:</strong> use Group messaging for students <em>and</em> a parent-facing thread (or route parent comms through the Parents list in People). Weekly "here's what we did / here's what to practice" notes go here.</li>
+<li><strong>Resources tab:</strong> attach charts, chord sheets, reference tracks/playlists, and the song-of-the-week so students can practice at home. This is where per-song resources live for now; a public song section on the site can mirror them once a repertoire settles.</li>
+<li><strong>Events:</strong> schedule the weekly meeting as a recurring Group event so attendance and reminders are automatic; add the Showcase as a special event parents can be invited to.</li>
+</ul>
+<h2>Services — the teaching tool <em>and</em> the destination</h2>
+<p>Services does double duty: it's how you <em>show</em> students how real set-building and scheduling works, and it's where your teaching repertoire lives.</p>
+<ul>
+<li><strong>Service Type:</strong> create a "Worship Music School" Service Type separate from your Sunday service types so you don't clutter production.</li>
+<li><strong>Song library:</strong> add each song from the Song Library into Services with its key, BPM, and attach the chart, chord chart, and a reference MP3/link. Now "learn this week's song" = "open the plan in Services," exactly like the real teams do.</li>
+<li><strong>Plans = your lessons:</strong> build a Plan per meeting (or per unit). Put the song(s) in order, set the key you're teaching, and add the arrangement. When you teach "planning a set" (musicianship Week 12) and "building a full set" (Week 20), you're literally doing it in Services in front of them.</li>
+<li><strong>Scheduling the kids:</strong> as students get ready, <strong>schedule</strong> them onto a Plan by position (drums, bass, keys, etc.). They get the accept/decline flow and see their music — the exact experience of being on a real team. This makes Week 17's "communication &amp; tools" lesson concrete.</li>
+<li><strong>On-ramp to serving:</strong> when a student is ready to serve on an actual North Metro team, they're already fluent in the tool.</li>
+</ul>
+<h2>How it all connects (the flow)</h2>
+<ol>
+<li>Parent signs the student up in <strong>Registrations</strong> (consent + info captured).</li>
+<li>Registrant lands in <strong>People</strong>; the Onboarding Workflow runs; student joins the <strong>Group</strong>, parent joins the Parents list.</li>
+<li>Week to week, <strong>Groups</strong> handles attendance, messaging, and practice resources.</li>
+<li><strong>Services</strong> holds the song library and the lesson plans; as students progress you <strong>schedule</strong> them onto plans so they learn the real workflow.</li>
+<li>The <strong>Showcase</strong> is a Group event (for invites) backed by a Services plan (for the set).</li>
+</ol>
+<h2>A few setup decisions to make</h2>
+<ul>
+<li>Free vs. materials fee (drives whether Registrations needs payment on).</li>
+<li>One Group vs. two (split if you end up with two bands).</li>
+<li>Whether to use a dedicated Services Type now or reuse an existing one (dedicated is cleaner).</li>
+<li>Who's the "admin" of record on each product so it survives if a leader steps back.</li>
+</ul></div></details><p class="teaser">Ready-to-adapt templates: a parent email, a student invite, an on-stage announcement, promo slide copy, an FAQ, and the weekly-communication cadence that keeps a group alive.</p><details class="deep"><summary>Promotion &amp; communication kit — emails, scripts, FAQ</summary><div class="prose"><p>Templates to adapt, not scripts to read word-for-word. Swap in the real dates, the final name, the meeting night, and the signup link. Voice is warm and parent-facing; tighten to match your own.</p>
+<hr />
+<h2>1. Parent information email</h2>
+<p><strong>Subject:</strong> A new group for your young musician — starts Sept 6</p>
+<p>Hi [Parent name],</p>
+<p>We're starting something at North Metro this fall that I'm genuinely excited about, and I wanted you to hear about it directly.</p>
+<p><strong>Worship Music School</strong> is a weekly group for young musicians — roughly middle and high school age, at every level from "just started" to "plays all the time." Each week we do three things together: a short Bible study on what worship really means (far beyond just singing), hands-on lessons in the real craft of being a musician, and then we actually play music together as a band.</p>
+<p>It's led by three people who do this for real: I'm a former touring and session musician and play/lead here at North Metro; [co-leader] is a full-time music teacher; and [vocalist] is a professional vocalist who leads on our team. Our heart is discipleship first — we want to grow these students in their faith and their character just as much as their chops.</p>
+<p>Here are the details:
+- <strong>When:</strong> Sunday evenings, [time], starting September 6
+- <strong>Where:</strong> [room / campus]
+- <strong>Who:</strong> students in grades [X–Y]; any instrument or voice; all experience levels welcome
+- <strong>Cost:</strong> Free
+- <strong>Sign up:</strong> [Registrations link] (takes about 5 minutes; includes a media release for our end-of-term showcase)</p>
+<p>If your student is curious about music — or already living in it — this is a place for them to grow, make friends, and be part of a band. I'd love to have them.</p>
+<p>Questions? Just reply here.</p>
+<p>Grateful,
+Evan
+[contact]</p>
+<hr />
+<h2>2. Student invite (short — for a group chat, story, or text)</h2>
+<p>🎸 New this fall: <strong>Worship Music School.</strong> Sunday evenings starting Sept 6. Bible study + learn the real stuff about being a musician (gear, in-ears, playing in a band) + actually jam together every week. Any instrument, any level — beginners totally welcome. We'll even do the occasional non-worship song for fun. Come be in a band. Sign up 👉 [link]</p>
+<hr />
+<h2>3. On-stage / announcement script (~45 seconds)</h2>
+<p>"Quick one for our families with young musicians. This fall we're launching <strong>Worship Music School</strong> — a weekly group for students, middle and high school, at any level. Every week they'll dig into a short Bible study about worship, learn the behind-the-scenes craft of being a musician — the gear, the tech, playing in a real band — and then actually play together. It's led by [names], who all serve on our worship team. Whether your kid is brand new to an instrument or already can't put it down, there's a spot for them. Details and signup are in the app and in this week's email — and I'd love to talk to any of you about it after service."</p>
+<hr />
+<h2>4. Promo slide copy (for pre-service loops / socials)</h2>
+<p><strong>Slide 1:</strong> WORSHIP MUSIC SCHOOL — <em>for young musicians</em> · Starts Sun Sept 6
+<strong>Slide 2:</strong> Bible study · Real musician skills · Play in a band — every week
+<strong>Slide 3:</strong> Grades [X–Y] · Any instrument · All levels (beginners welcome) · Sign up: [link/QR]</p>
+<p>Keep it to three short slides. A QR code straight to the Registrations link beats a typed URL every time.</p>
+<hr />
+<h2>5. FAQ (for the email, a card, or a landing section)</h2>
+<p><strong>Does my child need to already play well?</strong> No. We build tiered parts so a beginner and an experienced player can be in the same band and both have something to play.</p>
+<p><strong>What instruments?</strong> Drums, bass, guitar, keys/piano, and vocals are the core band. If they play something else, talk to us — we'll find a place.</p>
+<p><strong>Do they need their own gear?</strong> Ideally they bring their own instrument if they have one. We'll have some shared backline; tell us on the signup if access to an instrument is a barrier.</p>
+<p><strong>Is this a performance group or a class?</strong> Both, on purpose. It's discipleship and learning first, and it builds toward playing — including an end-of-term Showcase families are invited to.</p>
+<p><strong>Is it just worship music?</strong> Mostly, but we mix in the occasional secular song for range and fun.</p>
+<p><strong>How much of a commitment is it?</strong> Weekly, [time]. Consistency matters because it's a band — but life happens, just keep us posted.</p>
+<hr />
+<h2>6. Ongoing weekly communication (the cadence that keeps it alive)</h2>
+<p>The single habit that makes a group like this thrive is a short, reliable weekly note. Keep it to the same rhythm every week so students and parents know it's coming.</p>
+<p><strong>After each meeting — to students (via Groups):</strong></p>
+<blockquote>
+<p>Tonight we [studied ___ / covered ___ / worked on ___]. <strong>This week, practice:</strong> [song + the one thing to focus on]. Reference track + chart are in the Resources tab. See you Sunday. 🎶</p>
+</blockquote>
+<p><strong>Roughly monthly — to parents:</strong>
+A few sentences on what the group's been learning (spiritually and musically), a heads-up on anything coming (the Showcase, a break week), and one genuine encouragement about their student. Parents who feel looped in become your biggest advocates.</p>
+<p><strong>Before the Showcase — to everyone:</strong>
+Date, time, location, "invite your people," and what to expect. Make it feel like the event it is.</p>
+<h2>Promotion timeline (works backward from Sept 6)</h2>
+<ul>
+<li><strong>~4 weeks out (mid-Aug):</strong> signup opens; first parent email; slides begin looping.</li>
+<li><strong>~3 weeks out:</strong> first on-stage announcement; student-channel push.</li>
+<li><strong>~2 weeks out:</strong> second email with the FAQ; personal invites from leaders to specific kids (this converts best).</li>
+<li><strong>~1 week out:</strong> "last call" announcement + reminder to registered families with the practical details.</li>
+<li><strong>Launch week:</strong> confirmation/welcome to registered students with room, time, and what to bring.</li>
+</ul></div></details><p class="teaser">Room and gear, a starter budget, child-safety essentials, leader roles, contingencies, and a running list of ideas worth deciding on early.</p><details class="deep"><summary>Logistics, safety &amp; the didn’t-think-of-that list</summary><div class="prose"><p>This is the "everything else" file — the operational stuff that makes or breaks a group, the things worth deciding before Day 1, and a running list of ideas and open questions.</p>
+<h2>Room &amp; space</h2>
+<p>You need a room that can hold a small band setup plus a circle for discussion, ideally with the flexibility to do both in one night. Look for: enough power (dedicated circuits are ideal so a full band doesn't trip a breaker), the ability to be a little loud without disrupting others, a screen or wall for projecting lyrics/charts, and storage or easy load-in for gear. Setting up a quick "discussion circle" area separate from the "band" area helps the three sections feel distinct.</p>
+<h2>Gear &amp; tech — what you actually need</h2>
+<p>You can start lean and grow. A workable minimum:</p>
+<ul>
+<li><strong>Backline:</strong> a drum kit (or an electronic kit — great for volume control), a keyboard/stage piano with a stand and sustain pedal, one or two combo amps (guitar/bass) or DIs into the PA, and a bass.</li>
+<li><strong>PA / monitoring:</strong> a small powered PA or mixer, a couple of speakers, and at minimum one or two monitors — or, better for the in-ears lesson, a simple personal-monitor/IEM solution even if it's modest.</li>
+<li><strong>Mics &amp; cables:</strong> a couple of vocal mics, a stock of XLR and instrument cables, DI boxes, and a power conditioner/quality power strips.</li>
+<li><strong>Consumables:</strong> drumsticks, a few sets of strings (guitar/bass), guitar picks, batteries (9V for pedals/active basses, AA), and disposable/individual in-ear tips for hygiene.</li>
+<li><strong>Tech:</strong> a laptop/tablet for lyrics-and-charts (ProPresenter or similar) and a metronome/click source; a phone or small interface for the "record and review" week.</li>
+</ul>
+<p>Some of this may already exist in a youth room or can be borrowed from the main stage midweek. Flag on the signup whether students can bring their own instruments — that reduces what you need to provide.</p>
+<h3>Starter budget sketch (adjust to reality)</h3>
+<p>Think in three buckets: <strong>one-time</strong> (any PA/monitor/kit gaps, cables, DIs, mic stands), <strong>per-term consumables</strong> (strings, sticks, batteries, in-ear tips), and <strong>curriculum/printing</strong> (charts, any study materials). Even a modest recurring consumables line prevents the "nobody has a 9V battery" moment from derailing a rehearsal. Bring a specific number to the church once you've inventoried what's already available.</p>
+<h2>Child safety &amp; protection</h2>
+<p>This is non-negotiable and should be settled before launch:
+- All leaders and any helpers <strong>background-checked and cleared</strong> per North Metro's policy.
+- <strong>Two-adult rule</strong> — never one adult alone with a student; keep the room visible/open.
+- <strong>Media release</strong> collected at signup for any Showcase photos/video or promo.
+- <strong>Check-in/pickup</strong> expectations clear to parents, especially for younger students.
+- <strong>Emergency contacts and medical/allergy notes</strong> captured at signup and accessible to leaders.
+- Communication with minors routed through parents/an approved channel, per church policy — not private DMs.</p>
+<h2>Leaders &amp; ratios</h2>
+<p>Three leaders is a strong core (rhythm section + theory/strings + vocals). Watch your student-to-leader ratio as it grows; if you push past a comfortable band size, that's the signal to recruit a helper or split into two bands rather than dilute the experience. Define now who owns what: overall direction and rhythm section (Evan), instrument/theory instruction (co-leader), vocals and leading (vocalist), and who owns the Planning Center admin and parent communication.</p>
+<h2>Home-practice expectations (a simple student covenant)</h2>
+<p>Set the tone Day 1 with a short, positive agreement students opt into — something like: <em>I'll come prepared (I'll practice my part at home), I'll be on time and present, I'll serve the song and my bandmates, I'll take care of the gear, and I'll bring a teachable, encouraging attitude.</em> Keep it aspirational, not punitive. Reinforce that "rehearsal is for playing together, not learning the notes" — that one expectation, held kindly, changes everything.</p>
+<h2>Attendance &amp; follow-up</h2>
+<p>Take attendance every week in Groups. It's your earliest warning system: two missed weeks from a kid who was engaged is a text-and-check-in, not a discipline issue. The relationship is the retention strategy.</p>
+<h2>The Showcase (Week 14 / Dec 13)</h2>
+<p>Treat it as a real event, because it's the payoff that makes everything feel worth it. Decide the format early: a standalone family showcase, or folding the band into a youth or weekend service. Handle invites through the Group event, run a real soundcheck (that's literally the week's lesson), keep it short and celebratory, and make space for a student or two to share what they've learned. Photos/video (with the release on file) become next term's promotion.</p>
+<h2>Contingencies</h2>
+<ul>
+<li><strong>Too many signups:</strong> cap via Registrations and run a waitlist; a big response is a two-band problem, which is a good problem — recruit one more helper.</li>
+<li><strong>Too few:</strong> run it anyway with whoever comes; a tight small band is a great first term, and word-of-mouth after the Showcase fills term two.</li>
+<li><strong>Very mixed levels:</strong> lean on the tiered song parts (Song Library difficulty ratings), pair a stronger student with a newer one, and let advanced players push ahead on the "finish" weeks while beginners cement the basics.</li>
+<li><strong>A leader is out a given week:</strong> the three-leader structure means you can cover; keep plans in Planning Center so anyone can run the night.</li>
+</ul>
+<h2>Things you may not have thought of (a starter list)</h2>
+<ul>
+<li>A consistent <strong>name and simple brand</strong> (a logo, a color) makes promotion and a future website far easier — worth locking early.</li>
+<li>A <strong>private playlist</strong> (Spotify/Apple) of the term's songs so students marinate in the repertoire all week.</li>
+<li><strong>Photo/video capture</strong> most weeks (with releases) — it fuels promotion and gives students something to be proud of.</li>
+<li>A <strong>guest week</strong> — bring in a working musician, a FOH engineer, or a lighting tech for a Q&A; it makes the "production world" lesson unforgettable.</li>
+<li><strong>Instrument access equity</strong> — quietly make sure a kid without gear at home isn't left out (loaner instrument, practice time in the room).</li>
+<li>A <strong>"serving on-ramp"</strong> — a clear, celebrated path from the group onto a real North Metro team for students who are ready.</li>
+<li><strong>Parent buy-in touchpoints</strong> — the monthly parent note and the Showcase invite turn parents into advocates and drivers-to-practice.</li>
+<li><strong>Hearing protection</strong> framed as a career skill, not a rule — it lands better and it's true.</li>
+<li>A <strong>term-end feedback loop</strong> — a two-minute survey to students/parents to improve the next term.</li>
+<li>The <strong>per-week resource hub</strong> is live on the public site (Schedule + Song Library both link out to chart/chords/reference-track per song) — mirror the same links into the Groups Resources tab for students who live there day-to-day.</li>
+</ul>
+<h2>Confirmed</h2>
+<ul>
+<li><strong>Name:</strong> Worship Music School — final, not a working title.</li>
+<li><strong>Meeting night/length:</strong> Sunday evenings, ~60 min, launching Sep 6, 2026.</li>
+<li><strong>Grade range:</strong> middle + high school (~12–18), all-levels — no floor.</li>
+<li><strong>Cost:</strong> free to families. Gear/consumables come from the church budget (figure still needed — see below).</li>
+</ul>
+<h2>Open decisions to confirm (the short list)</h2>
+<ol>
+<li>Whether we want a simple <strong>logo/brand</strong> to go with the name.</li>
+<li><strong>Room</strong> on the church calendar for Sunday evenings.</li>
+<li>The <strong>budget figure</strong> for gear/consumables (cost to families is settled — free).</li>
+<li><strong>Showcase format</strong> — standalone vs. folded into a service.</li>
+<li><strong>Who owns Planning Center admin</strong> and <strong>parent communication</strong>.</li>
+<li>Any <strong>existing gear</strong> we can use so we only buy the gaps.</li>
+</ol></div></details>
+</div></section>
+
+<section id="discuss" class="discuss"><div class="wrap reveal">
+  <p class="eyebrow">Let’s decide together</p>
+  <h2>Open questions &amp; next steps</h2>
+  <p class="lede">This is a first draft meant to start the conversation. A few things are confirmed, a few are still assumptions, and a few decisions are still genuinely open — that’s where your input comes in.</p>
+  <div class="qcols">
+    <div class="qbox"><h3>Confirmed</h3><ul><li>Name <span class="as">Worship Music School — final</span></li><li>Meeting night &amp; length <span class="as">Sunday evenings, ~60 min, launching Sep 6, 2026</span></li><li>Grade range <span class="as">middle + high school (~12–18), all levels — no floor</span></li><li>Cost <span class="as">free to families</span></li></ul></div>
+    <div class="qbox"><h3>Assumptions to confirm</h3><ul><li>Experience mix <span class="as">assumed a wide range — hence tiered, per-instrument song parts</span></li><li>Group size <span class="as">designed for one band of ~5–12; splits cleanly into two</span></li></ul></div>
+    <div class="qbox"><h3>Decisions still open</h3><ol><li>Whether we want a simple logo/brand</li><li>Room on the church calendar for Sunday evenings</li><li>The budget figure for gear/consumables</li><li>Showcase format — standalone, or folded into a service</li><li>Who owns Planning Center admin &amp; parent communication</li><li>What existing gear we can use so we only buy the gaps</li></ol></div>
+  </div>
+  <p style="margin-top:24px;color:#cfe0dc">Have a reaction, a name idea, or a student in mind? That’s exactly what this page is for — bring it to Evan and the team.</p>
+</div></section>
+
+
+<footer><div class="wrap">
+  <span><strong>Worship Music School</strong> · North Metro Church, Kennesaw GA</span>
+  <span class="mono" style="font-size:.78rem">Draft v1 · July 2026 · for discussion</span>
+</div></footer>
+
+
+<script>
+// reveal on scroll
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+// scrollspy: highlight the nav link for the section crossing the viewport middle
+const spy=[...document.querySelectorAll('nav a.lnk')].filter(a=>(a.getAttribute('href')||'').startsWith('#'));
+const byId=new Map(spy.map(a=>[a.getAttribute('href').slice(1),a]));
+const secs=spy.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+if(secs.length){
+  const spyIO=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){spy.forEach(a=>a.classList.remove('active'));const a=byId.get(e.target.id);if(a)a.classList.add('active');}});
+  },{rootMargin:'-50% 0px -50% 0px',threshold:0});
+  secs.forEach(s=>spyIO.observe(s));
+}
+</script>
+
+</body>
+</html>
