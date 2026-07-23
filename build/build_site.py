@@ -32,6 +32,35 @@ def full_details(path, summary, teaser):
             f'<details class="deep"><summary>{html.escape(summary)}</summary>'
             f'<div class="prose">{md2html(text)}</div></details>')
 
+# ---------- resources (per-song chart / chord chart / reference track links) ----------
+RES_KINDS = [("Chart URL", "chart", "Chart"), ("Chord Chart URL", "chords", "Chords"), ("Reference Track URL", "track", "Track")]
+
+def load_song_resources():
+    data = read_csv(os.path.join(DATA, "song_library.csv"))
+    head = data[0]; idx = {c: i for i, c in enumerate(head)}
+    out = {}
+    for r in data[1:]:
+        out[r[idx["Title"]]] = {col: r[idx[col]] for col, _, _ in RES_KINDS}
+    return out
+
+def resource_links_html(titles_field, lib_by_title, empty="&ndash;"):
+    titles = [t for t in titles_field.split("; ") if t]
+    if not titles:
+        return f'<span class="res-empty">{empty}</span>'
+    links = []
+    any_link = False
+    for title in titles:
+        res = lib_by_title.get(title, {})
+        for col, cls, label in RES_KINDS:
+            url = res.get(col, "")
+            if url:
+                any_link = True
+                links.append(f'<a class="reslink r-{cls}" href="{html.escape(url)}" target="_blank" rel="noopener">{label}</a>')
+    if not any_link:
+        names = html.escape(", ".join(titles))
+        return f'<span class="res-empty" title="{names}">Coming soon</span>'
+    return "".join(links)
+
 # ---------- schedule ----------
 def meter(label, val):
     val = int(val)
@@ -42,15 +71,17 @@ def meter(label, val):
 
 def schedule_html():
     rows = read_csv(os.path.join(DATA, "rollout_schedule.csv"))[1:]
+    lib_by_title = load_song_resources()
     trs = []
     for r in rows:
-        wk, date, term, disc, pas, mus, song, notes = r
+        wk, date, term, disc, pas, mus, song, song_titles, notes = r
         is_break = wk == "—"
         cls = "brk" if is_break else term.lower()
         mile = any(k in notes for k in ("MILESTONE", "SHOWCASE", "LAUNCH"))
         notes_html = html.escape(notes)
         if mile:
             notes_html = f'<span class="mile">{notes_html}</span>'
+        res_html = resource_links_html(song_titles, lib_by_title, empty="&mdash;") if not is_break else '<span class="res-empty">&mdash;</span>'
         trs.append(
             f'<tr class="{cls}">'
             f'<td class="col-week mono">{html.escape(wk)}</td>'
@@ -60,6 +91,7 @@ def schedule_html():
             f'<td class="col-pass mono2">{html.escape(pas)}</td>'
             f'<td class="col-mus">{html.escape(mus)}</td>'
             f'<td class="col-song">{html.escape(song)}</td>'
+            f'<td class="col-res">{res_html}</td>'
             f'<td class="col-notes">{notes_html}</td></tr>')
     return "\n".join(trs)
 
@@ -70,6 +102,7 @@ def songs_html():
     rows = []
     for r in data[1:]:
         t = r[idx["Type"]].lower()
+        res_html = resource_links_html(r[idx["Title"]], {r[idx["Title"]]: {col: r[idx[col]] for col, _, _ in RES_KINDS}})
         rows.append(
             f'<tr data-type="{t}">'
             f'<td class="song"><div class="t">{html.escape(r[idx["Title"]])}</div>'
@@ -84,7 +117,8 @@ def songs_html():
             f'<td class="ctr">{meter("Guitar", r[idx["Guitar"]])}</td>'
             f'<td class="ctr">{meter("Keys", r[idx["Keys"]])}</td>'
             f'<td class="ctr">{meter("Vocals", r[idx["Vocals"]])}</td>'
-            f'<td class="ctr">{meter("Overall", r[idx["Overall"]])}</td></tr>')
+            f'<td class="ctr">{meter("Overall", r[idx["Overall"]])}</td>'
+            f'<td class="col-res">{res_html}</td></tr>')
     return "\n".join(rows)
 
 CSS = r"""
@@ -188,6 +222,12 @@ tbody tr.brk td{background:#f0efe9;color:#9a9a90;font-style:italic}
 .tg-fall{background:var(--amber-soft);color:#8a5a12} .tg-winter{background:#dcebf0;color:#1c5763} .tg-brk{background:#e4e3db;color:#8a8a80}
 .mile{background:var(--amber-soft);padding:2px 6px;border-radius:6px;font-weight:600;color:#8a5a12}
 .col-week{text-align:center;font-weight:600;color:var(--pine-700)}
+.col-res{white-space:nowrap}
+.reslink{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.05em;padding:3px 8px;border-radius:20px;margin:0 4px 4px 0;text-decoration:none;
+  background:var(--amber-soft);color:#8a5a12;border:1px solid transparent;transition:.15s}
+.reslink:hover{background:var(--amber);color:#fff}
+.res-empty{font-size:.78rem;color:#9a9a90;font-style:italic}
 
 /* meters */
 .meter{display:inline-flex;gap:2px;align-items:flex-end;height:16px}
@@ -353,12 +393,12 @@ SCHEDULE = f"""
 <section id="schedule"><div class="wrap reveal">
   <p class="eyebrow">Week by week</p>
   <h2>The rollout schedule</h2>
-  <p class="lede">All 22 meetings, with each week&rsquo;s Bible study, musicianship topic, and song lined up together. Dates run Sunday evenings from Sep 6.</p>
+  <p class="lede">All 22 meetings, with each week&rsquo;s Bible study, musicianship topic, and song lined up together. Dates run Sunday evenings from Sep 6. Tap a week&rsquo;s <b>Resources</b> for that song&rsquo;s chart, chords, and reference track as they&rsquo;re added.</p>
   <div class="tablewrap"><table>
     <thead><tr>
       <th class="col-week">Wk</th><th class="col-date">Date</th><th class="col-term">Term</th>
       <th class="col-disc">Discipleship</th><th class="col-pass">Passage (NIV)</th>
-      <th class="col-mus">Musicianship</th><th class="col-song">Playing together</th><th class="col-notes">Milestones</th>
+      <th class="col-mus">Musicianship</th><th class="col-song">Playing together</th><th class="col-res">Resources</th><th class="col-notes">Milestones</th>
     </tr></thead>
     <tbody>{schedule_html()}</tbody>
   </table></div>
@@ -401,7 +441,7 @@ SONGS = f"""
     <thead><tr>
       <th>Song</th><th>Type</th><th class="ctr">Key</th><th class="ctr">BPM</th>
       <th class="ctr" title="Drums">Dr</th><th class="ctr" title="Bass">Ba</th><th class="ctr" title="Guitar">Gt</th>
-      <th class="ctr" title="Keys">Ky</th><th class="ctr" title="Vocals">Vo</th><th class="ctr" title="Overall">All</th>
+      <th class="ctr" title="Keys">Ky</th><th class="ctr" title="Vocals">Vo</th><th class="ctr" title="Overall">All</th><th class="col-res">Resources</th>
     </tr></thead>
     <tbody>{songs_html()}</tbody>
   </table></div>
@@ -426,18 +466,19 @@ DISCUSS = """
   <p class="lede">This is a first draft meant to start the conversation. A few things are confirmed, a few are still assumptions, and a few decisions are still genuinely open — that&rsquo;s where your input comes in.</p>
   <div class="qcols">
     <div class="qbox"><h3>Confirmed</h3><ul>
+      <li>Name <span class="as">Worship Music School — final</span></li>
       <li>Meeting night &amp; length <span class="as">Sunday evenings, ~60 min, launching Sep 6, 2026</span></li>
+      <li>Grade range <span class="as">middle + high school (~12–18), all levels — no floor</span></li>
+      <li>Cost <span class="as">free to families</span></li>
     </ul></div>
     <div class="qbox"><h3>Assumptions to confirm</h3><ul>
-      <li>Ages <span class="as">assumed middle + high school (~12–18)</span></li>
       <li>Experience mix <span class="as">assumed a wide range — hence tiered, per-instrument song parts</span></li>
       <li>Group size <span class="as">designed for one band of ~5–12; splits cleanly into two</span></li>
     </ul></div>
     <div class="qbox"><h3>Decisions still open</h3><ol>
-      <li>Final name &amp; whether we want a simple logo/brand</li>
+      <li>Whether we want a simple logo/brand</li>
       <li>Room on the church calendar for Sunday evenings</li>
-      <li>Grade range — all-levels, or set a floor?</li>
-      <li>Free vs. a small materials fee, and the gear budget</li>
+      <li>The budget figure for gear/consumables</li>
       <li>Showcase format — standalone, or folded into a service</li>
       <li>Who owns Planning Center admin &amp; parent communication</li>
       <li>What existing gear we can use so we only buy the gaps</li>

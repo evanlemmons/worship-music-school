@@ -13,7 +13,7 @@ A weekly discipleship-and-development group that forms young musicians into wors
 
 Most churches can teach a teenager to play an instrument, and many can run a Bible study. Very few do both in the same room, on purpose, with people who have actually done it professionally. This group closes that gap. We want students to leave able to (1) articulate what worship really is and live like it, (2) understand the whole ecosystem of being a working musician — not just the notes, but the gear, the team, and the preparation — and (3) sit in with a band and hold their part on a real stage.
 
-The name "Worship Music School" is a working title; the heart of it is discipleship through music.
+The heart of it is discipleship through music.
 
 ## The three-part weekly meeting
 
@@ -29,7 +29,7 @@ Every meeting is built on the same three sections, in this order. The order matt
 
 ## Who it's for
 
-Young musicians, roughly middle-through-high-school age, at a range of experience levels — from students still learning their instrument to those ready for real repertoire. The curriculum is built with tiered parts so a beginner and an experienced player can be in the same band and both have something to play. *(These parameters are an assumption to confirm — see the final section.)*
+Young musicians, middle + high school age (~12–18) — confirmed, all levels, no floor — at a range of experience levels, from students still learning their instrument to those ready for real repertoire. The curriculum is built with tiered parts so a beginner and an experienced player can be in the same band and both have something to play. *(Experience mix and group size are still assumptions to confirm — see the final section.)*
 
 ## Leadership team
 
@@ -84,11 +84,10 @@ A consistent room with power and enough space for a small band setup; access to 
 
 ## Confirmed, and assumptions still to confirm
 
-**Confirmed:** meeting night/time — **Sunday evenings, ~60 minutes**, starting Sept 6, 2026. The schedule keys off this.
+**Confirmed:** name (Worship Music School, final) · meeting night/time (**Sunday evenings, ~60 minutes**, starting Sept 6, 2026 — the schedule keys off this) · ages (**middle + high school, ~12–18, all levels**) · cost (**free** to families).
 
-A few other parameters were drafted from the initial brief and are still assumed, easy to adjust once confirmed:
+A couple of parameters are still assumed, easy to adjust once confirmed:
 
-- **Ages:** assumed **middle + high school (~12–18)**.
 - **Experience:** assumed a **wide mix**, hence tiered parts.
 - **Group size:** designed flexibly for a single band of roughly 5–12; splits into two bands cleanly if larger.
 
