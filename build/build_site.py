@@ -13,6 +13,34 @@ def md2html(text):
 def strip_h1(t):
     return "\n".join(l for l in t.split("\n") if not l.startswith("# "))
 
+# ---------- copy deck (all editable landing-page text lives in content/site-copy.md) ----------
+def load_copy():
+    text = open(os.path.join(CONTENT, "site-copy.md"), encoding="utf-8").read()
+    out = {}
+    for chunk in text.split("\n## ")[1:]:
+        nl = chunk.index("\n")
+        out[chunk[:nl].strip()] = chunk[nl + 1:].strip()
+    return out
+COPY = load_copy()
+
+def _inline(md_text):
+    """Render a short copy string, stripping the single wrapping <p> markdown adds."""
+    h = md2html(md_text.strip())
+    if h.startswith("<p>") and h.endswith("</p>") and "<p>" not in h[3:]:
+        h = h[3:-4]
+    return h
+def ci(key):                       # inline copy slot (heading, eyebrow, sentence)
+    return _inline(COPY[key])
+def cattr(key):                    # copy destined for an HTML attribute
+    return html.escape(COPY[key].strip(), quote=True)
+def crows(key):                    # bulleted slot -> list of ' | '-split field lists
+    rows = []
+    for line in COPY[key].splitlines():
+        line = line.strip()
+        if line.startswith("- "):
+            rows.append([f.strip() for f in line[2:].split(" | ")])
+    return rows
+
 # ---------- term-split collapsibles ----------
 def term_details(path, open_first=True):
     text = open(os.path.join(CONTENT, path)).read()
@@ -310,17 +338,58 @@ for i in range(30):
     h = 12 + (i * 7) % 40
     eq_bars += f'<span class="eq-bar" style="animation-duration:{dur:.2f}s;animation-delay:{delay:.2f}s;height:{h}%"></span>'
 
-NAV = """
+def song_type_counts():
+    data = read_csv(os.path.join(DATA, "song_library.csv"))
+    idx = {c: i for i, c in enumerate(data[0])}
+    counts = {"all": len(data) - 1}
+    for r in data[1:]:
+        t = r[idx["Type"]].lower()
+        counts[t] = counts.get(t, 0) + 1
+    return counts
+
+nav_links_html = "".join(
+    f'<a class="lnk" href="#{a}">{_inline(l)}</a>' for a, l in crows("nav_links"))
+hero_facts_html = "".join(
+    f'<span><span class="k">{_inline(lab)}</span> &nbsp;<b>{_inline(val)}</b></span>'
+    for lab, val in crows("hero_facts"))
+rhythm_cards_html = "".join(
+    f'<div class="part p{i}"><div class="bar"></div><div class="num">{_inline(num)}</div>'
+    f'<h3>{_inline(t)}</h3><div class="time">{_inline(tm)}</div><p>{_inline(d)}</p></div>'
+    for i, (num, t, tm, d) in enumerate(crows("rhythm_cards"), 1))
+
+_terms = crows("terms_list")
+_miles = [m[0] for m in crows("terms_milestones")]
+terms_rail_html = ""
+for _i, (_nm, _dates, _wks, _title, _desc) in enumerate(_terms):
+    terms_rail_html += (
+        f'<div class="trm"><div class="when"><span class="big">{_inline(_nm)}</span>'
+        f'{_inline(_dates)}<br>{_inline(_wks)}</div>'
+        f'<div><h3>{_inline(_title)}</h3><p>{_inline(_desc)}</p></div></div>')
+    if _i < len(_miles):
+        terms_rail_html += f'<div class="milestone"><span class="star">★</span> {_inline(_miles[_i])}</div>'
+team_html = "".join(
+    f'<div class="mem"><div class="role">{_inline(role)}</div><h4>{_inline(nm)}</h4><p>{_inline(bio)}</p></div>'
+    for role, nm, bio in crows("team_members"))
+
+_counts = song_type_counts()
+songs_filters_html = ""
+for _i, (_t, _lab) in enumerate(crows("songs_filters")):
+    _cls = ' class="act"' if _i == 0 else ''
+    songs_filters_html += f'<button{_cls} data-f="{_t}">{_inline(_lab)} {_counts.get(_t, 0)}</button>'
+
+behind_html = "".join(
+    full_details(fname, summary, _inline(teaser)) for fname, summary, teaser in crows("behind_cards"))
+
+confirmed_html = "".join(
+    f'<li>{_inline(lab)} <span class="as">{_inline(ann)}</span></li>' for lab, ann in crows("discuss_confirmed"))
+assumptions_html = "".join(
+    f'<li>{_inline(lab)} <span class="as">{_inline(ann)}</span></li>' for lab, ann in crows("discuss_assumptions"))
+open_html = "".join(f'<li>{_inline(x[0])}</li>' for x in crows("discuss_open"))
+
+NAV = f"""
 <nav><div class="wrap">
-<span class="brand">Worship Music School <span class="dot">●</span></span>
-<a class="lnk" href="#overview">Overview</a>
-<a class="lnk" href="#rhythm">The Night</a>
-<a class="lnk" href="#schedule">Schedule</a>
-<a class="lnk" href="#studies">Studies</a>
-<a class="lnk" href="#musicianship">Musicianship</a>
-<a class="lnk" href="#songs">Songs</a>
-<a class="lnk" href="#behind">Setup</a>
-<a class="lnk" href="#discuss">Discuss</a>
+<span class="brand">{ci("nav_brand")} <span class="dot">●</span></span>
+{nav_links_html}
 </div></nav>
 """
 
@@ -329,61 +398,48 @@ HERO = f"""
   <div class="eq">{eq_bars}</div>
   <div class="glow"></div>
   <div class="wrap">
-    <p class="eyebrow">North Metro Church · Kennesaw, GA</p>
-    <h1>Worship Music School<span class="sub">Discipleship &amp; development for young musicians</span></h1>
-    <p class="vision">Forming young musicians into worshipers first and skilled, stage-ready band members second — growing them in Christ, in craft, and in the real-world skills of playing music together.</p>
+    <p class="eyebrow">{ci("hero_eyebrow")}</p>
+    <h1>{ci("hero_title")}<span class="sub">{ci("hero_subtitle")}</span></h1>
+    <p class="vision">{ci("hero_vision")}</p>
     <div class="facts">
-      <span><span class="k">launch</span> &nbsp;<b>Sun · Sep 6, 2026</b></span>
-      <span><span class="k">rhythm</span> &nbsp;<b>Weekly · ~60 min</b></span>
-      <span><span class="k">a night</span> &nbsp;<b>3 sections</b></span>
-      <span><span class="k">first terms</span> &nbsp;<b>22 meetings · Sep–Feb</b></span>
-      <span><span class="k">draft v1</span> &nbsp;<b>for discussion</b></span>
+      {hero_facts_html}
     </div>
   </div>
 </header>
 """
 
-OVERVIEW = """
+OVERVIEW = f"""
 <section id="overview"><div class="wrap reveal">
-  <p class="eyebrow">The idea</p>
-  <h2>Discipleship, taught through music</h2>
-  <p class="lede">Most churches can teach a teenager to play an instrument, and many can run a Bible study. Very few do both in the same room, on purpose, led by people who have done it professionally. This group closes that gap.</p>
-  <p style="max-width:64ch;color:var(--ink-soft);margin-top:1rem">We want students to leave able to explain what worship really is and live like it, to understand the whole ecosystem of being a working musician — not just the notes, but the gear, the team, and the preparation — and to sit in with a band and confidently hold their part on a real stage. The name is a working title; the heart of it is discipleship through music.</p>
+  <p class="eyebrow">{ci("overview_eyebrow")}</p>
+  <h2>{ci("overview_heading")}</h2>
+  <p class="lede">{ci("overview_lede")}</p>
+  <p style="max-width:64ch;color:var(--ink-soft);margin-top:1rem">{ci("overview_body")}</p>
 </div></section>
 """
 
-RHYTHM = """
+RHYTHM = f"""
 <section id="rhythm"><div class="wrap reveal">
-  <p class="eyebrow">Every week, the same shape</p>
-  <h2>The three-part night</h2>
-  <p class="lede">Ground, sharpen, play — in that order, so that playing together is the celebration the rest of the night points toward.</p>
+  <p class="eyebrow">{ci("rhythm_eyebrow")}</p>
+  <h2>{ci("rhythm_heading")}</h2>
+  <p class="lede">{ci("rhythm_lede")}</p>
   <div class="grid3">
-    <div class="part p1"><div class="bar"></div><div class="num">01</div><h3>Discipleship</h3><div class="time">~15 minutes</div><p>A short, discussion-driven Bible study (NIV). The first term explores worship as a whole life, not just singing — and we get to know each other.</p></div>
-    <div class="part p2"><div class="bar"></div><div class="num">02</div><h3>Musicianship</h3><div class="time">~20 minutes</div><p>The craft nobody teaches you: signal flow and gear, in-ears, playing to a click, charts, rehearsing, the music director, planning a set, and production.</p></div>
-    <div class="part p3"><div class="bar"></div><div class="num">03</div><h3>Playing together</h3><div class="time">~25 minutes</div><p>We learn and work a song as a band and actually play it. Repertoire leans worship, with the occasional secular song for range and fun.</p></div>
+    {rhythm_cards_html}
   </div>
-  <p class="note">Timing assumes a ~60-minute meeting. If we stretch to 90 minutes, expand to roughly 25 / 30 / 35; for a full two hours, the extra time goes to hands-on gear and a longer band run-through.</p>
+  <p class="note">{ci("rhythm_note")}</p>
 </div></section>
 """
 
-TERMS = """
+TERMS = f"""
 <section id="terms"><div class="wrap reveal">
-  <p class="eyebrow">The arc</p>
-  <h2>Two terms, one break at Christmas</h2>
+  <p class="eyebrow">{ci("terms_eyebrow")}</p>
+  <h2>{ci("terms_heading")}</h2>
   <div class="time-rail">
-    <div class="trm"><div class="when"><span class="big">Fall</span>Sep 6 – Dec 13<br>14 weeks</div>
-      <div><h3>&ldquo;What Is Worship?&rdquo;</h3><p>Foundations. A biblical theology of worship-as-life; the ecosystem of playing (gear, signal flow, in-ears, click, charts, rehearsing); accessible worship songs that grow in difficulty.</p></div></div>
-    <div class="milestone"><span class="star">★</span> Fall Showcase — Dec 13 · the term&rsquo;s repertoire performed for families / a service</div>
-    <div class="trm"><div class="when"><span class="big">Winter</span>Jan 3 – Feb 21<br>8 weeks</div>
-      <div><h3>&ldquo;The Worshiping Life&rdquo;</h3><p>Deepening. The Psalms and the character of a worship leader; gear deep-dives, set planning, leading vs. playing, and self-review; the band works toward a full, connected set.</p></div></div>
-    <div class="milestone"><span class="star">★</span> A full connected set — Feb 21 · planned, flowing, with transitions; then plan spring</div>
+    {terms_rail_html}
   </div>
   <div style="margin-top:34px">
-    <p class="eyebrow">Who leads</p>
+    <p class="eyebrow">{ci("team_eyebrow")}</p>
     <div class="team">
-      <div class="mem"><div class="role">Lead</div><h4>Evan Lemmons</h4><p>Former touring &amp; session musician — bass professionally, drums at an intermediate level, functional piano &amp; guitar. Plays and leads at North Metro. Anchors the rhythm section and the &ldquo;life of a working musician&rdquo; teaching.</p></div>
-      <div class="mem"><div class="role">Co-lead</div><h4>Music educator</h4><p>A full-time music teacher, strong on piano and guitar. Anchors instrument instruction and theory fundamentals.</p></div>
-      <div class="mem"><div class="role">Vocals</div><h4>Professional vocalist</h4><p>A professional vocalist who leads on the North Metro team. Anchors vocal coaching, harmony, and leading a congregation.</p></div>
+      {team_html}
     </div>
   </div>
 </div></section>
@@ -391,9 +447,9 @@ TERMS = """
 
 SCHEDULE = f"""
 <section id="schedule"><div class="wrap reveal">
-  <p class="eyebrow">Week by week</p>
-  <h2>The rollout schedule</h2>
-  <p class="lede">All 22 meetings, with each week&rsquo;s Bible study, musicianship topic, and song lined up together. Dates run Sunday evenings from Sep 6. Tap a week&rsquo;s <b>Resources</b> for that song&rsquo;s chart, chords, and reference track as they&rsquo;re added.</p>
+  <p class="eyebrow">{ci("schedule_eyebrow")}</p>
+  <h2>{ci("schedule_heading")}</h2>
+  <p class="lede">{ci("schedule_lede")}</p>
   <div class="tablewrap"><table>
     <thead><tr>
       <th class="col-week">Wk</th><th class="col-date">Date</th><th class="col-term">Term</th>
@@ -407,35 +463,32 @@ SCHEDULE = f"""
 
 STUDIES = f"""
 <section id="studies"><div class="wrap reveal">
-  <p class="eyebrow">Section 01 · the full arc</p>
-  <h2>Discipleship &amp; Bible studies</h2>
+  <p class="eyebrow">{ci("studies_eyebrow")}</p>
+  <h2>{ci("studies_heading")}</h2>
   {term_details("02-discipleship-track.md")}
 </div></section>
 """
 
 MUSIC = f"""
 <section id="musicianship"><div class="wrap reveal">
-  <p class="eyebrow">Section 02 · the full arc</p>
-  <h2>Musicianship topics</h2>
+  <p class="eyebrow">{ci("music_eyebrow")}</p>
+  <h2>{ci("music_heading")}</h2>
   {term_details("03-musicianship-track.md")}
 </div></section>
 """
 
 SONGS = f"""
 <section id="songs"><div class="wrap reveal">
-  <p class="eyebrow">Section 03 · the backlog</p>
-  <h2>Song library</h2>
-  <p class="lede">45 songs — mostly worship, a Christmas set for the Showcase, and secular change-ups for range. Difficulty is rated 1–5 <em>per instrument</em>, shown as input-level meters, so a beginner and an advanced player can take the same song and both be challenged.</p>
+  <p class="eyebrow">{ci("songs_eyebrow")}</p>
+  <h2>{ci("songs_heading")}</h2>
+  <p class="lede">{ci("songs_lede")}</p>
   <div class="legend">
-    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3"></i><i class="s s4"></i><i class="s s5"></i></span> easier</span>
-    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3 on"></i><i class="s s4 on"></i><i class="s s5"></i></span> harder</span>
-    <span class="lg"><b>1</b> very easy · <b>3</b> intermediate · <b>5</b> a feature part</span>
+    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3"></i><i class="s s4"></i><i class="s s5"></i></span> {ci("songs_legend_easier")}</span>
+    <span class="lg"><span class="meter"><i class="s s1 on"></i><i class="s s2 on"></i><i class="s s3 on"></i><i class="s s4 on"></i><i class="s s5"></i></span> {ci("songs_legend_harder")}</span>
+    <span class="lg">{ci("songs_legend_scale")}</span>
   </div>
   <div class="filters">
-    <button class="act" data-f="all">All 45</button>
-    <button data-f="worship">Worship 29</button>
-    <button data-f="christmas">Christmas 6</button>
-    <button data-f="secular">Secular 10</button>
+    {songs_filters_html}
   </div>
   <div class="tablewrap"><table id="songtable">
     <thead><tr>
@@ -450,48 +503,31 @@ SONGS = f"""
 
 BEHIND = f"""
 <section id="behind"><div class="wrap reveal">
-  <p class="eyebrow">Making it run</p>
-  <h2>Setup, promotion &amp; logistics</h2>
-  <p class="lede">The operational side — how we sign people up, spread the word, and cover the practical bases. Expand any section for the full detail.</p>
-  {full_details("05-planning-center-setup.md","Planning Center setup — the full guide","Registrations is the front door, People is the roster, Groups is the week-to-week home base, and Services is both the teaching tool and the real thing we&rsquo;re preparing them for.")}
-  {full_details("06-promotion-communication.md","Promotion &amp; communication kit — emails, scripts, FAQ","Ready-to-adapt templates: a parent email, a student invite, an on-stage announcement, promo slide copy, an FAQ, and the weekly-communication cadence that keeps a group alive.")}
-  {full_details("07-logistics-safety.md","Logistics, safety &amp; the didn&rsquo;t-think-of-that list","Room and gear, a starter budget, child-safety essentials, leader roles, contingencies, and a running list of ideas worth deciding on early.")}
+  <p class="eyebrow">{ci("behind_eyebrow")}</p>
+  <h2>{ci("behind_heading")}</h2>
+  <p class="lede">{ci("behind_lede")}</p>
+  {behind_html}
 </div></section>
 """
 
-DISCUSS = """
+DISCUSS = f"""
 <section id="discuss" class="discuss"><div class="wrap reveal">
-  <p class="eyebrow">Let&rsquo;s decide together</p>
-  <h2>Open questions &amp; next steps</h2>
-  <p class="lede">This is a first draft meant to start the conversation. A few things are confirmed, a few are still assumptions, and a few decisions are still genuinely open — that&rsquo;s where your input comes in.</p>
+  <p class="eyebrow">{ci("discuss_eyebrow")}</p>
+  <h2>{ci("discuss_heading")}</h2>
+  <p class="lede">{ci("discuss_lede")}</p>
   <div class="qcols">
-    <div class="qbox"><h3>Confirmed</h3><ul>
-      <li>Name <span class="as">Worship Music School — final</span></li>
-      <li>Meeting night &amp; length <span class="as">Sunday evenings, ~60 min, launching Sep 6, 2026</span></li>
-      <li>Grade range <span class="as">middle + high school (~12–18), all levels — no floor</span></li>
-      <li>Cost <span class="as">free to families</span></li>
-    </ul></div>
-    <div class="qbox"><h3>Assumptions to confirm</h3><ul>
-      <li>Experience mix <span class="as">assumed a wide range — hence tiered, per-instrument song parts</span></li>
-      <li>Group size <span class="as">designed for one band of ~5–12; splits cleanly into two</span></li>
-    </ul></div>
-    <div class="qbox"><h3>Decisions still open</h3><ol>
-      <li>Whether we want a simple logo/brand</li>
-      <li>Room on the church calendar for Sunday evenings</li>
-      <li>The budget figure for gear/consumables</li>
-      <li>Showcase format — standalone, or folded into a service</li>
-      <li>Who owns Planning Center admin &amp; parent communication</li>
-      <li>What existing gear we can use so we only buy the gaps</li>
-    </ol></div>
+    <div class="qbox"><h3>{ci("discuss_col_confirmed")}</h3><ul>{confirmed_html}</ul></div>
+    <div class="qbox"><h3>{ci("discuss_col_assumptions")}</h3><ul>{assumptions_html}</ul></div>
+    <div class="qbox"><h3>{ci("discuss_col_open")}</h3><ol>{open_html}</ol></div>
   </div>
-  <p style="margin-top:24px;color:#cfe0dc">Have a reaction, a name idea, or a student in mind? That&rsquo;s exactly what this page is for — bring it to Evan and the team.</p>
+  <p style="margin-top:24px;color:#cfe0dc">{ci("discuss_closing")}</p>
 </div></section>
 """
 
-FOOTER = """
+FOOTER = f"""
 <footer><div class="wrap">
-  <span><b>Worship Music School</b> · North Metro Church, Kennesaw GA</span>
-  <span class="mono" style="font-size:.78rem">Draft v1 · July 2026 · for discussion</span>
+  <span>{ci("footer_left")}</span>
+  <span class="mono" style="font-size:.78rem">{ci("footer_right")}</span>
 </div></footer>
 """
 
@@ -522,10 +558,10 @@ HTML = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Worship Music School — North Metro Church</title>
-<meta name="description" content="A weekly discipleship & development group for young musicians at North Metro Church: Bible study, real musician skills, and playing together as a band. First-terms plan, Sept 2026–Feb 2027.">
-<meta property="og:title" content="Worship Music School — North Metro Church">
-<meta property="og:description" content="Discipleship, musicianship, and playing together — a weekly group for young musicians. The first-terms plan, open for discussion.">
+<title>{cattr("meta_title")}</title>
+<meta name="description" content="{cattr("meta_description")}">
+<meta property="og:title" content="{cattr("og_title")}">
+<meta property="og:description" content="{cattr("og_description")}">
 <meta property="og:type" content="website">
 <link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com">

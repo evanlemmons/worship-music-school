@@ -11,7 +11,7 @@ Closes out a working session on this repo: apply any decisions made in conversat
 
 1. **Check for anything to do.** `git status`. If the tree is clean and nothing decision-worthy came up this session, tell the user there's nothing to log and stop — don't create empty commits or PRs.
 
-2. **Apply decisions to source, not just notes.** Scan the session for anything decided (name, dates, budget, room, format, song picks, etc.) that isn't yet reflected in the repo. Edit the real source: `content/00,02,03,05,06,07-*.md` prose and `data/*.csv` tables. Never hand-edit `content/01-*.md`, `content/04-*.md`, `docs/index.html`, or `deliverables/*` — those are generated.
+2. **Apply decisions to source, not just notes.** Scan the session for anything decided (name, dates, budget, room, format, song picks, copy edits, etc.) that isn't yet reflected in the repo. Edit the real source: `content/00,02,03,05,06,07-*.md` prose, `content/site-copy.md` (landing-page copy), and `data/*.csv` tables. Never hand-edit `content/01-*.md`, `content/04-*.md`, `docs/index.html`, or `deliverables/*` — those are generated.
 
 3. **Rebuild whatever source touched.**
    ```bash

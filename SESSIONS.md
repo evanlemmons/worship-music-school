@@ -2,6 +2,19 @@
 
 Working notes from each session on Worship Music School — decisions and why, not a diff dump (see `git log` for that).
 
+## 2026-07-23 (session 2)
+
+**Decided:**
+- Evan wants to make many copy edits himself, locally. Chose to move all landing-page copy out of the Python build script into plain markdown so every visible word is editable without touching code.
+
+**Changed:**
+- Created `content/site-copy.md` — a "copy deck" holding all landing-page text (hero, section headings/ledes, the three cards, term blurbs, team bios, open-questions lists, footer, and the `<title>`/meta tags). Slots are `## key` blocks; plain sections are prose, tabular bits (facts, cards, lists) are `- ` bullets with ` | ` field separators. Markdown (`**bold**`/`*italic*`) works.
+- Rewired `build/build_site.py` to read from the copy deck (parser + `ci()`/`cattr()`/`crows()` helpers). The page's structure/CSS/tables stay in the script; only the words moved out. Verified via a visible-text diff that this is a pure refactor — the only content changes are intended: dropped the stale "the name is a working title" line, and fixed a pre-existing double-escape bug where two "Setup" section summaries rendered literal `&amp;`/`&rsquo;`.
+- Bonus: the song-library filter counts (All 45 / Worship 29 / …) are now computed from the CSV instead of hardcoded, so they can't drift.
+- Documented the new file in `CLAUDE.md` (layout + source-of-truth rule), `docs/README.md`, and the `/session-end` skill.
+
+**Open:** (unchanged from session 1 below) — Showcase format, room, budget figure, PC admin owner, gear inventory, logo/brand, experience-mix & group-size assumptions, possible Planning Center Services integration for resource links. Note: `Program Plan.pdf` still stale vs `.docx` (no LibreOffice locally).
+
 ## 2026-07-23
 
 **Decided:**
