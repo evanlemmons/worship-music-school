@@ -55,12 +55,12 @@ Preview the page: open `docs/index.html` in a browser.
 - **Dates** key off a confirmed Sunday-evening start, Sep 6, 2026 — if the meeting night ever changes, update `data/rollout_schedule.csv` and rebuild.
 
 ## Current state
-Complete first draft. The page is built and was shared for discussion. It is **not yet published** to a permanent public URL — that's the immediate next step.
+**Live:** https://evanlemmons.github.io/worship-music-school/ (repo: github.com/evanlemmons/worship-music-school, public). Published via GitHub Pages, deploying from `main` / `/docs`. Meeting night/time is confirmed (Sunday evenings, ~60 min, from Sep 6, 2026); other assumptions and open decisions below are still being worked.
 
 ## Assumptions to confirm with Evan
 Meeting night/time: **confirmed** — Sunday evenings, ~60 min, from Sep 6, 2026. Still open: ages (assumed middle + high, ~12–18) · experience (assumed a wide mix — hence tiered parts) · group size (one band of ~5–12; splits into two).
 
 ## Roadmap / next
-1. **Publish** `docs/` to GitHub Pages under Evan's account (see `docs/PUBLISH.md`); set up a change → rebuild → push loop so the live page stays current.
+1. **Change → rebuild → publish workflow:** use `/session-end` at the close of a working session — it logs decisions, rebuilds `docs/index.html` (and `deliverables/` if relevant), commits, and merges so the live page stays current.
 2. **Work the open decisions** in `content/07-logistics-safety.md` (also shown in the page's "Open questions" section); update content as they're settled.
 3. **Grow the page into a per-week resource hub** — per-song charts, chord sheets, and reference-track links organized by week (the "students download this week's songs" idea). The song and schedule data are structured to support this.
