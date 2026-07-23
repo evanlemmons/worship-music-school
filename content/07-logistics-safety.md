@@ -56,13 +56,18 @@ Treat it as a real event, because it's the payoff that makes everything feel wor
 - **Parent buy-in touchpoints** — the monthly parent note and the Showcase invite turn parents into advocates and drivers-to-practice.
 - **Hearing protection** framed as a career skill, not a rule — it lands better and it's true.
 - A **term-end feedback loop** — a two-minute survey to students/parents to improve the next term.
-- The **future website** you mentioned — the natural v1 is just the Groups Resources tab (charts + reference tracks per week); a real site can come later once the content pattern is proven.
+- The **per-week resource hub** is live on the public site (Schedule + Song Library both link out to chart/chords/reference-track per song) — mirror the same links into the Groups Resources tab for students who live there day-to-day.
+
+## Confirmed
+- **Name:** Worship Music School — final, not a working title.
+- **Meeting night/length:** Sunday evenings, ~60 min, launching Sep 6, 2026.
+- **Grade range:** middle + high school (~12–18), all-levels — no floor.
+- **Cost:** free to families. Gear/consumables come from the church budget (figure still needed — see below).
 
 ## Open decisions to confirm (the short list)
-1. Final **name** and whether we want a simple logo/brand.
-2. **Room** for Sunday evenings (night & length confirmed: Sunday evenings, ~60 min, launching Sep 6, 2026).
-3. **Grade range** and whether we're truly all-levels or setting a floor.
-4. **Free vs. materials fee**, and the **budget** for gear/consumables.
-5. **Showcase format** — standalone vs. folded into a service.
-6. **Who owns Planning Center admin** and **parent communication**.
-7. Any **existing gear** we can use so we only buy the gaps.
+1. Whether we want a simple **logo/brand** to go with the name.
+2. **Room** on the church calendar for Sunday evenings.
+3. The **budget figure** for gear/consumables (cost to families is settled — free).
+4. **Showcase format** — standalone vs. folded into a service.
+5. **Who owns Planning Center admin** and **parent communication**.
+6. Any **existing gear** we can use so we only buy the gaps.

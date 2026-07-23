@@ -29,7 +29,7 @@ This is where the group actually lives between meetings.
 - **One Group:** "Worship Music School (Sun 2026–27)."
 - **Attendance:** take attendance every week — it's your simplest health metric and helps you follow up with a student who's drifting.
 - **Messaging:** use Group messaging for students *and* a parent-facing thread (or route parent comms through the Parents list in People). Weekly "here's what we did / here's what to practice" notes go here.
-- **Resources tab:** attach charts, chord sheets, reference tracks/playlists, and the song-of-the-week so students can practice at home. This is the beginning of the "download songs week to week" idea you mentioned — Groups Resources is the no-code version of that until a website exists.
+- **Resources tab:** attach charts, chord sheets, reference tracks/playlists, and the song-of-the-week so students can practice at home. Mirror the same links from the public site's Song Library (`data/song_library.csv` → `Chart URL` / `Chord Chart URL` / `Reference Track URL`) so the two stay in sync.
 - **Events:** schedule the weekly meeting as a recurring Group event so attendance and reminders are automatic; add the Showcase as a special event parents can be invited to.
 
 ## Services — the teaching tool *and* the destination

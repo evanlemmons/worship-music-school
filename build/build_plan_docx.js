@@ -152,9 +152,8 @@ children.push(bullet("Confirmation that all leaders and helpers are background-c
 
 // Assumptions
 children.push(H1("A few things confirmed, a few still assumed"));
-children.push(P("This plan was drafted from the initial brief; the meeting night/time is now locked, and a few other parameters remain assumed and easy to adjust — none of them change the structure, only the specifics:"));
-children.push(bullet("Meeting night/time: confirmed — Sunday evenings, ~60 minutes, starting Sept 6."));
-children.push(bullet("Ages: middle + high school (~12–18)."));
+children.push(P("This plan was drafted from the initial brief; several parameters are now locked, and a couple remain assumed and easy to adjust — none of them change the structure, only the specifics:"));
+children.push(bullet("Confirmed: name (Worship Music School, final), meeting night/time (Sunday evenings, ~60 minutes, starting Sept 6), grade range (middle + high school, ~12–18, all levels), and cost (free to families)."));
 children.push(bullet("Experience: a wide mix, which is why parts are tiered per instrument."));
 children.push(bullet("Group size: designed for a single band of roughly 5–12, splitting cleanly into two bands if larger."));
 

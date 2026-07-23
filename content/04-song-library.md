@@ -18,7 +18,7 @@ The point of per-instrument ratings is **mixed-level bands**: a song can be a 2 
 - **"Begin/finish" pacing.** Newer musicians get two weeks per song; strong players learn it in one and help teach.
 - **Keys shown are band-friendly starting keys** — transpose to fit your vocalist (that's the Week 8 number-system lesson in action).
 - **Lean worship, season with variety.** Roughly one secular change-up every several weeks keeps it fresh without losing the mission.
-- **This is your future "download" list.** These songs, with charts + reference tracks, are what goes in the Groups Resources tab now and a website later.
+- **This is the "download" list.** `Chart URL`, `Chord Chart URL`, and `Reference Track URL` are columns in `data/song_library.csv` — fill them in and rebuild, and they show up as links on the public site's Song Library and week-by-week Schedule (also worth mirroring into the Groups Resources tab).
 
 ## Worship songs (29)
 

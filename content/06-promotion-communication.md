@@ -20,7 +20,7 @@ Here are the details:
 - **When:** Sunday evenings, [time], starting September 6
 - **Where:** [room / campus]
 - **Who:** students in grades [X–Y]; any instrument or voice; all experience levels welcome
-- **Cost:** [free / $X materials fee]
+- **Cost:** Free
 - **Sign up:** [Registrations link] (takes about 5 minutes; includes a media release for our end-of-term showcase)
 
 If your student is curious about music — or already living in it — this is a place for them to grow, make friends, and be part of a band. I'd love to have them.

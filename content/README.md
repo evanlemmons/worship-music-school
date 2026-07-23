@@ -16,12 +16,12 @@ This is the home base for everything about the group. Start with the Program Ove
 | **07 — Logistics, Safety & Open Questions** | Room/gear/budget, child safety, roles, contingencies, the "didn't-think-of-that" list, and open decisions. |
 
 ## Confirmed & working assumptions
-**Confirmed:** meeting **Sunday evenings, ~60 min**, starting **Sep 6, 2026**. Still assumed: students **middle + high school (~12–18)**; a **wide mix** of experience (hence per-instrument difficulty tiers); one band of ~5–12 (splits into two cleanly). None of these change the structure — only the specifics.
+**Confirmed:** name (Worship Music School, final) · meeting **Sunday evenings, ~60 min**, starting **Sep 6, 2026** · grade range **middle + high school (~12–18), all levels** · **free** to families. Still assumed: a **wide mix** of experience (hence per-instrument difficulty tiers); one band of ~5–12 (splits into two cleanly). None of these change the structure — only the specifics.
 
 ## Deliverables generated alongside this repository
 - **Program Plan** (Word + PDF) — the polished, admin-facing version of doc 00.
 - **Rollout Schedule** (Excel) — doc 01 as a sortable grid.
 - **Song Library** (Excel) — doc 04 as a sortable, filterable sheet.
 
-## The future website
-The v1 of the "kids can download songs week to week" idea is simply the **Groups → Resources** tab (charts + reference tracks per week). A real site can come later once the weekly content pattern is proven — the Song Library and Schedule here are already structured to feed one.
+## The per-week resource hub
+Live on the public site now: the Schedule and Song Library tables both show a **Resources** column with links to each song's chart, chord chart, and reference track. The links come from `Chart URL` / `Chord Chart URL` / `Reference Track URL` in `data/song_library.csv` — empty by default, so a song shows "Coming soon" until a leader fills in a URL and rebuilds. Mirror the same links into the Groups → Resources tab for students who live there day-to-day.

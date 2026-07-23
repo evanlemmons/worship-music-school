@@ -39,9 +39,13 @@ def md_table(header, rows):
         out.append("| " + " | ".join(c if c else "" for c in r) + " |")
     return "\n".join(out)
 
+display_cols = [c for c in header if c != "Song Title"]
+di_idx = [header.index(c) for c in display_cols]
+display_rows = [[r[i] for i in di_idx] for r in rows]
+
 with open(os.path.join(CONTENT, "01-weekly-rhythm-schedule.md"),"w") as f:
     f.write(intro)
-    f.write(md_table(header, rows))
+    f.write(md_table(display_cols, display_rows))
     f.write("\n")
 
 # ---------- 04 Song Library ----------
@@ -69,7 +73,7 @@ The point of per-instrument ratings is **mixed-level bands**: a song can be a 2 
 - **"Begin/finish" pacing.** Newer musicians get two weeks per song; strong players learn it in one and help teach.
 - **Keys shown are band-friendly starting keys** — transpose to fit your vocalist (that's the Week 8 number-system lesson in action).
 - **Lean worship, season with variety.** Roughly one secular change-up every several weeks keeps it fresh without losing the mission.
-- **This is your future "download" list.** These songs, with charts + reference tracks, are what goes in the Groups Resources tab now and a website later.
+- **This is the "download" list.** `Chart URL`, `Chord Chart URL`, and `Reference Track URL` are columns in `data/song_library.csv` — fill them in and rebuild, and they show up as links on the public site's Song Library and week-by-week Schedule (also worth mirroring into the Groups Resources tab).
 
 """
 show_cols = ["Title","Artist","Key","BPM","Feel","Drums","Bass","Guitar","Keys","Vocals","Overall","Best For","Teaching Focus"]
